@@ -22,11 +22,21 @@ Explain your design in plain language.
 Some prompts to answer:
 
 - What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
+    it uses [energy, valence, danceability, acousticness, tempo_normalized]
 - What information does your `UserProfile` store
+    favorite_genre
+    favorite_mood
+    target_energy
+    likes_acoustic
+    favorite_artist
 - How does your `Recommender` compute a score for each song
+  GENRE_WEIGHT = 3.0
+  MOOD_WEIGHT = 2.0
+  ENERGY_WEIGHT = 2.0
+  ACOUSTIC_WEIGHT = 1.0
+  ARTIST_BONUS = 1.0
 - How do you choose which songs to recommend
-
+  it will be based on ranking. all the scores based on the music characteristics will be added and the ones with higher scores will be recommended.
 You can include a simple diagram or bullet list if helpful.
 
 ---
@@ -71,12 +81,22 @@ You can add more tests in `tests/test_recommender.py`.
 Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
 
 ```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
+Top recommendations:
+
+Sunrise City - Score: 6.96
+Because: matches genre (pop); matches mood (happy); energy is a close match
+
+Gym Hero - Score: 4.74
+Because: matches genre (pop); energy is a close match
+
+Rooftop Lights - Score: 3.92
+Because: matches mood (happy); energy is a close match
+
+Concrete Dreams - Score: 1.96
+Because: energy is a close match
+
+Night Drive Loop - Score: 1.90
+Because: energy is a close match
 ```
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->

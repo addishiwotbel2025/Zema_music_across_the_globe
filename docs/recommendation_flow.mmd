@@ -1,0 +1,14 @@
+flowchart TD
+    A([Start]) --> B[/"User input: user_prefs<br/>(genre, mood, energy, ...)"/]
+    B --> C["Load songs.csv<br/>load_songs → list of songs"]
+
+    C --> D{"More songs<br/>to score?"}
+    D -->|Yes| E["Score song by its characteristics<br/>genre, mood, energy, valence,<br/>danceability, acoustic, artist"]
+    E --> F["Build reason<br/>(why it scored that way)"]
+    F --> G["Append tuple<br/>(song, score, reason)<br/>to results list"]
+    G --> D
+
+    D -->|No| H["Sort results by score<br/>in reverse (highest first)"]
+    H --> I["Take first k<br/>(top recommendations)"]
+    I --> J[/"Present recommendations<br/>with reasons"/]
+    J --> K([End])
