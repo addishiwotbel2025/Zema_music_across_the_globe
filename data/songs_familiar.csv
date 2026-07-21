@@ -1,0 +1,21 @@
+id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
+1,Take Five,Dave Brubeck,jazz,cool,0.40,174,0.62,0.52,0.82
+2,So What,Miles Davis,jazz,relaxed,0.35,136,0.50,0.46,0.86
+3,Feeling Good,Nina Simone,jazz,confident,0.48,128,0.58,0.50,0.66
+4,What a Wonderful World,Louis Armstrong,jazz,nostalgic,0.24,90,0.72,0.34,0.74
+5,Fly Me to the Moon,Frank Sinatra,jazz,romantic,0.42,120,0.70,0.56,0.62
+6,Essence,Wizkid,afrobeat,romantic,0.60,108,0.70,0.80,0.20
+7,Calm Down,Rema,afrobeat,happy,0.68,107,0.80,0.85,0.15
+8,Last Last,Burna Boy,afrobeat,moody,0.65,106,0.48,0.75,0.20
+9,Ye,Burna Boy,afrobeat,confident,0.70,100,0.68,0.80,0.16
+10,Water No Get Enemy,Fela Kuti,afrobeat,groovy,0.62,118,0.60,0.74,0.32
+11,Water,Tyla,afrobeat,happy,0.66,114,0.75,0.88,0.12
+12,Despacito,Luis Fonsi,latin,happy,0.80,89,0.85,0.90,0.20
+13,Vivir Mi Vida,Marc Anthony,latin,happy,0.85,116,0.86,0.84,0.18
+14,La Bamba,Ritchie Valens,latin,happy,0.70,150,0.84,0.74,0.42
+15,Bailando,Enrique Iglesias,latin,happy,0.80,92,0.80,0.85,0.24
+16,Gasolina,Daddy Yankee,latin,energetic,0.90,95,0.74,0.90,0.06
+17,Con Altura,Rosalia,latin,confident,0.75,98,0.70,0.86,0.12
+18,Billie Jean,Michael Jackson,pop,confident,0.78,117,0.72,0.86,0.10
+19,Rolling in the Deep,Adele,pop,intense,0.72,105,0.42,0.73,0.30
+20,Smells Like Teen Spirit,Nirvana,rock,intense,0.92,117,0.55,0.50,0.05

@@ -126,6 +126,51 @@ Examples:
 You will go deeper on this in your model card.
 
 ---
+## output for edge cases
+
+  ```
+  === conflicting: metal + low energy: {'genre': 'metal', 'mood': 'aggressive', 'energy': 0.1} ===
+Iron Verdict - Score: 5.26  (matches genre (metal); matches mood (aggressive))
+Spacewalk Thoughts - Score: 1.64  (energy is a close match)
+Moonlit Sonata Redux - Score: 1.60  (general match)
+Library Rain - Score: 1.50  (general match)
+Coffee Shop Stories - Score: 1.46  (general match)
+
+=== out-of-range energy: {'genre': 'pop', 'energy': 5.0} ===
+Gym Hero - Score: -3.14  (matches genre (pop))
+Sunrise City - Score: -3.36  (matches genre (pop))
+Iron Verdict - Score: -6.06  (general match)
+Voltage Rush - Score: -6.10  (general match)
+Storm Runner - Score: -6.18  (general match)
+
+=== typo + wrong case: {'genre': 'Pop', 'mood': 'saad'} ===
+Sunrise City - Score: 0.00  (general match)
+Midnight Coding - Score: 0.00  (general match)
+Storm Runner - Score: 0.00  (general match)
+Library Rain - Score: 0.00  (general match)
+Gym Hero - Score: 0.00  (general match)
+
+=== empty profile: {} ===
+Sunrise City - Score: 0.00  (general match)
+Midnight Coding - Score: 0.00  (general match)
+Storm Runner - Score: 0.00  (general match)
+Library Rain - Score: 0.00  (general match)
+Gym Hero - Score: 0.00  (general match)
+
+=== numeric-only mid values: {'energy': 0.5, 'valence': 0.5, 'danceability': 0.5} ===
+Midnight Coding - Score: 4.57  (energy is a close match; mood/positivity is a close match; danceability is a close match)
+Fields of Amber - Score: 4.56  (energy is a close match; mood/positivity is a close match; danceability is a close match)
+Focus Flow - Score: 4.52  (energy is a close match; mood/positivity is a close match; danceability is a close match)
+Library Rain - Score: 4.43  (energy is a close match; mood/positivity is a close match; danceability is a close match)
+Dust and Diesel - Score: 4.38  (energy is a close match; mood/positivity is a close match; danceability is a close match)
+
+=== lofi but not acoustic: {'genre': 'lofi', 'likes_acoustic': False} ===
+Midnight Coding - Score: 3.29  (matches genre (lofi))
+Focus Flow - Score: 3.22  (matches genre (lofi))
+Library Rain - Score: 3.14  (matches genre (lofi))
+Voltage Rush - Score: 0.97  (general match)
+Iron Verdict - Score: 0.96  (general match)
+```
 
 ## Reflection
 
