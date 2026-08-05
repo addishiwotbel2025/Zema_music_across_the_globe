@@ -1,15 +1,19 @@
 """
-Command line runner for the Music Recommender Simulation.
+Command line runner for the music recommender.
 
-This file helps you quickly run and test your recommender.
+Run from the project root with:
 
-You will implement the functions in recommender.py:
-- load_songs
-- score_song
-- recommend_songs
+    python -m src.main
 """
 
-from recommender import load_songs, recommend_songs
+from pathlib import Path
+
+from src.recommender import load_songs, recommend_songs
+
+# Resolve data files relative to this file, not the shell's working directory,
+# so the app runs the same way from anywhere.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+SONGS_CSV = PROJECT_ROOT / "data" / "songs.csv"
 
 
 def main() -> None:
@@ -23,7 +27,7 @@ def main() -> None:
     "lofi but not acoustic":           {"genre": "lofi", "likes_acoustic": False},
     }
 
-    songs = load_songs("data/songs.csv") 
+    songs = load_songs(str(SONGS_CSV))
     for name, prefs in profiles.items():
         print(f"\n=== {name}: {prefs} ===")
         for song, score, explanation in recommend_songs(prefs, songs, k=5):

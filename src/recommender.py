@@ -1,6 +1,14 @@
+"""
+Content-based music recommender.
+
+Scoring lives in one place: `_score_features`. The two public entry points are
+thin adapters over it, so the dataclass API (`Recommender`) and the dict API
+(`score_song` / `recommend_songs`) can never drift apart.
+"""
+
 import csv
-from typing import List, Dict, Tuple, Optional
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from typing import Dict, List, Optional, Tuple
 
 # --- Scoring weights -------------------------------------------------------
 # Genre is the broadest taste signal, so it leads; mood and energy refine
@@ -14,6 +22,27 @@ VALENCE_WEIGHT = 1.5
 DANCEABILITY_WEIGHT = 1.5
 ACOUSTIC_WEIGHT = 1.0
 ARTIST_BONUS = 1.0
+
+# The same weights keyed by feature name. Callers can pass a modified copy to
+# re-prioritise features per user without touching the scoring logic.
+DEFAULT_WEIGHTS: Dict[str, float] = {
+    "genre": GENRE_WEIGHT,
+    "mood": MOOD_WEIGHT,
+    "energy": ENERGY_WEIGHT,
+    "valence": VALENCE_WEIGHT,
+    "danceability": DANCEABILITY_WEIGHT,
+    "acousticness": ACOUSTIC_WEIGHT,
+    "artist": ARTIST_BONUS,
+}
+
+# Features scored by closeness between a user's target and the song's value.
+_PROXIMITY_FEATURES = ("energy", "valence", "danceability")
+
+_PROXIMITY_REASONS = {
+    "energy": "energy is close to what you like",
+    "valence": "mood/positivity is a close match",
+    "danceability": "danceability fits what you want",
+}
 
 
 @dataclass
@@ -33,6 +62,7 @@ class Song:
     danceability: float
     acousticness: float
 
+
 @dataclass
 class UserProfile:
     """
@@ -50,61 +80,93 @@ class UserProfile:
     target_valence: Optional[float] = None
     target_danceability: Optional[float] = None
 
+    def to_prefs(self) -> Dict:
+        """Convert to the dict form `score_song` expects, dropping unset fields."""
+        prefs: Dict = {
+            "genre": self.favorite_genre,
+            "mood": self.favorite_mood,
+            "energy": self.target_energy,
+            "likes_acoustic": self.likes_acoustic,
+        }
+        if self.favorite_artist is not None:
+            prefs["artist"] = self.favorite_artist
+        if self.target_valence is not None:
+            prefs["valence"] = self.target_valence
+        if self.target_danceability is not None:
+            prefs["danceability"] = self.target_danceability
+        return prefs
+
+
+def _score_features(
+    prefs: Dict,
+    song: Dict,
+    weights: Optional[Dict[str, float]] = None,
+) -> Tuple[float, List[str]]:
+    """
+    The single scoring implementation.
+
+    `prefs` and `song` are both plain dicts. A preference that is absent
+    contributes nothing, so partial profiles are valid input. `weights`
+    overrides DEFAULT_WEIGHTS per feature, which is how per-user feature
+    prioritisation is applied.
+    """
+    w = weights if weights is not None else DEFAULT_WEIGHTS
+    score = 0.0
+    reasons: List[str] = []
+
+    # Exact-match features.
+    if prefs.get("genre") and song["genre"] == prefs["genre"]:
+        score += w.get("genre", 0.0)
+        reasons.append(f"matches your favorite genre ({song['genre']})")
+
+    if prefs.get("mood") and song["mood"] == prefs["mood"]:
+        score += w.get("mood", 0.0)
+        reasons.append(f"matches your favorite mood ({song['mood']})")
+
+    # Proximity features: closer to the user's target scores higher.
+    for feature in _PROXIMITY_FEATURES:
+        if prefs.get(feature) is None:
+            continue
+        fit = 1.0 - abs(prefs[feature] - song[feature])
+        score += w.get(feature, 0.0) * fit
+        if fit > 0.8:
+            reasons.append(_PROXIMITY_REASONS[feature])
+
+    # Acoustic fit is directional: liking acoustic rewards high acousticness,
+    # and not liking it rewards the inverse.
+    if "likes_acoustic" in prefs:
+        acoustic_weight = w.get("acousticness", 0.0)
+        if prefs["likes_acoustic"]:
+            score += acoustic_weight * song["acousticness"]
+            if song["acousticness"] > 0.6:
+                reasons.append("acoustic feel, which you enjoy")
+        else:
+            score += acoustic_weight * (1.0 - song["acousticness"])
+
+    # Additional signal: artist affinity.
+    if prefs.get("artist") and song["artist"] == prefs["artist"]:
+        score += w.get("artist", 0.0)
+        reasons.append(f"by an artist you like ({song['artist']})")
+
+    return score, reasons
+
+
 class Recommender:
     """
     OOP implementation of the recommendation logic.
     Required by tests/test_recommender.py
     """
-    def __init__(self, songs: List[Song]):
+
+    def __init__(self, songs: List[Song], weights: Optional[Dict[str, float]] = None):
         self.songs = songs
+        self.weights = weights
 
     '''
     function takes in only 1 song, scores and and also gives reasons for why it is scored that way
     '''
     def _score(self, user: UserProfile, song: Song) -> Tuple[float, List[str]]:
         """Score a Song against a UserProfile, returning (score, reasons)."""
-        score = 0.0
-        reasons: List[str] = []
-
-        if song.genre == user.favorite_genre:
-            score += GENRE_WEIGHT
-            reasons.append(f"matches your favorite genre ({song.genre})")
-
-        if song.mood == user.favorite_mood:
-            score += MOOD_WEIGHT
-            reasons.append(f"matches your favorite mood ({song.mood})")
-
-        energy_fit = 1.0 - abs(user.target_energy - song.energy)
-        score += ENERGY_WEIGHT * energy_fit
-        if energy_fit > 0.8:
-            reasons.append("energy is close to what you like")
-
-        if user.target_valence is not None:
-            valence_fit = 1.0 - abs(user.target_valence - song.valence)
-            score += VALENCE_WEIGHT * valence_fit
-            if valence_fit > 0.8:
-                reasons.append("mood/positivity is a close match")
-
-        if user.target_danceability is not None:
-            dance_fit = 1.0 - abs(user.target_danceability - song.danceability)
-            score += DANCEABILITY_WEIGHT * dance_fit
-            if dance_fit > 0.8:
-                reasons.append("danceability fits what you want")
-
-        if user.likes_acoustic:
-            score += ACOUSTIC_WEIGHT * song.acousticness
-            if song.acousticness > 0.6:
-                reasons.append("acoustic feel, which you enjoy")
-        else:
-            score += ACOUSTIC_WEIGHT * (1.0 - song.acousticness)
-
-        # Additional signal: artist affinity.
-        if user.favorite_artist and song.artist == user.favorite_artist:
-            score += ARTIST_BONUS
-            reasons.append(f"by an artist you like ({song.artist})")
-
-        return score, reasons
-
+        return _score_features(user.to_prefs(), asdict(song), self.weights)
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
         """Return the top-k songs for a user, ranked by score (highest first)."""
@@ -122,21 +184,25 @@ class Recommender:
             return "A reasonable match based on your overall preferences."
         return "Recommended because it " + ", and ".join(reasons) + "."
 
+
+NUMERIC_FIELDS = frozenset(
+    {"energy", "tempo_bpm", "valence", "danceability", "acousticness"}
+)
+
+
 '''
-it converts songs.csv into a list of dicts 
-like {"id": 1, "title": "Sunrise City", "artist": 
-"Neon Echo", "genre": "pop", "energy": 0.82, ...}, 
-with numbers stored as real numbers so score_song() 
+it converts songs.csv into a list of dicts
+like {"id": 1, "title": "Sunrise City", "artist":
+"Neon Echo", "genre": "pop", "energy": 0.82, ...},
+with numbers stored as real numbers so score_song()
 can do arithmetic on them.
 '''
 def load_songs(csv_path: str) -> List[Dict]:
     """
-    Loads songs from a CSV file.
+    Loads songs from a CSV file into a list of dicts, with numeric columns
+    parsed as floats so scoring can do arithmetic on them.
     Required by src/main.py
     """
-    numeric_fields = {
-        "energy", "tempo_bpm", "valence", "danceability", "acousticness",
-    }
     songs: List[Dict] = []
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -145,14 +211,19 @@ def load_songs(csv_path: str) -> List[Dict]:
             for key, value in row.items():
                 if key == "id":
                     song[key] = int(value)
-                elif key in numeric_fields:
+                elif key in NUMERIC_FIELDS:
                     song[key] = float(value)
                 else:
                     song[key] = value
             songs.append(song)
     return songs
 
-def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
+
+def score_song(
+    user_prefs: Dict,
+    song: Dict,
+    weights: Optional[Dict[str, float]] = None,
+) -> Tuple[float, List[str]]:
     """
     Scores a single song against user preferences.
     Required by recommend_songs() and src/main.py
@@ -160,58 +231,23 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     user_prefs keys: "genre", "mood", "energy", and optionally "artist",
     "valence", "danceability", "likes_acoustic".
     """
-    score = 0.0
-    reasons: List[str] = []
+    return _score_features(user_prefs, song, weights)
 
-    if user_prefs.get("genre") and song["genre"] == user_prefs["genre"]:
-        score += GENRE_WEIGHT
-        reasons.append(f"matches genre ({song['genre']})")
 
-    if user_prefs.get("mood") and song["mood"] == user_prefs["mood"]:
-        score += MOOD_WEIGHT
-        reasons.append(f"matches mood ({song['mood']})")
-
-    if "energy" in user_prefs:
-        energy_fit = 1.0 - abs(user_prefs["energy"] - song["energy"])
-        score += ENERGY_WEIGHT * energy_fit
-        if energy_fit > 0.8:
-            reasons.append("energy is a close match")
-
-    if "valence" in user_prefs:
-        valence_fit = 1.0 - abs(user_prefs["valence"] - song["valence"])
-        score += VALENCE_WEIGHT * valence_fit
-        if valence_fit > 0.8:
-            reasons.append("mood/positivity is a close match")
-
-    if "danceability" in user_prefs:
-        dance_fit = 1.0 - abs(user_prefs["danceability"] - song["danceability"])
-        score += DANCEABILITY_WEIGHT * dance_fit
-        if dance_fit > 0.8:
-            reasons.append("danceability is a close match")
-
-    if "likes_acoustic" in user_prefs:
-        if user_prefs["likes_acoustic"]:
-            score += ACOUSTIC_WEIGHT * song["acousticness"]
-            if song["acousticness"] > 0.6:
-                reasons.append("acoustic feel, which you enjoy")
-        else:
-            score += ACOUSTIC_WEIGHT * (1.0 - song["acousticness"])
-
-    # Additional signal: artist affinity.
-    if user_prefs.get("artist") and song["artist"] == user_prefs["artist"]:
-        score += ARTIST_BONUS
-        reasons.append(f"by a preferred artist ({song['artist']})")
-
-    return score, reasons
-
-def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
+def recommend_songs(
+    user_prefs: Dict,
+    songs: List[Dict],
+    k: int = 5,
+    weights: Optional[Dict[str, float]] = None,
+) -> List[Tuple[Dict, float, str]]:
     """
-    Functional implementation of the recommendation logic.
+    Functional implementation of the recommendation logic. Returns the top-k
+    (song, score, explanation) tuples, highest score first.
     Required by src/main.py
     """
     scored: List[Tuple[Dict, float, str]] = []
     for song in songs:
-        score, reasons = score_song(user_prefs, song)
+        score, reasons = score_song(user_prefs, song, weights)
         explanation = "; ".join(reasons) if reasons else "general match"
         scored.append((song, score, explanation))
 
