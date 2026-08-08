@@ -35,6 +35,12 @@ DEFAULT_WEIGHTS: Dict[str, float] = {
     "artist": ARTIST_BONUS,
 }
 
+# Retrieval similarities are cosine values, typically 0.05-0.30, while the
+# genre weight is 3.0. Scaling by this factor makes a strong cultural match
+# worth roughly what a genre match is worth: enough to change the ranking,
+# not enough to override everything else the user asked for.
+RETRIEVAL_WEIGHT = 10.0
+
 # Features scored by closeness between a user's target and the song's value.
 _PROXIMITY_FEATURES = ("energy", "valence", "danceability")
 
@@ -97,10 +103,37 @@ class UserProfile:
         return prefs
 
 
+def retrieval_boost(song: Dict, boosts: Optional[Dict]) -> Tuple[float, Optional[Dict]]:
+    """
+    The strongest cultural match for this song, if any.
+
+    `boosts` is keyed by (kind, name) — ("artist", "Fela Kuti") or
+    ("genre", "ethio-jazz") — because a retrieved article describes an artist
+    or a genre rather than a song. A song can match on both; the stronger one
+    wins so a single song is not boosted twice for the same query.
+
+    Deliberately takes a plain dict rather than importing the retrieval module,
+    so scoring stays independent of where the boosts came from.
+    """
+    if not boosts:
+        return 0.0, None
+    candidates = [
+        boosts.get(("artist", song.get("artist"))),
+        boosts.get(("genre", song.get("genre"))),
+    ]
+    best = max(
+        (c for c in candidates if c is not None),
+        key=lambda c: c["score"],
+        default=None,
+    )
+    return (best["score"], best) if best else (0.0, None)
+
+
 def _score_features(
     prefs: Dict,
     song: Dict,
     weights: Optional[Dict[str, float]] = None,
+    boosts: Optional[Dict] = None,
 ) -> Tuple[float, List[str]]:
     """
     The single scoring implementation.
@@ -108,7 +141,9 @@ def _score_features(
     `prefs` and `song` are both plain dicts. A preference that is absent
     contributes nothing, so partial profiles are valid input. `weights`
     overrides DEFAULT_WEIGHTS per feature, which is how per-user feature
-    prioritisation is applied.
+    prioritisation is applied. `boosts` carries retrieval results, which add to
+    the score rather than filtering, so the user's numeric preferences still
+    apply.
     """
     w = weights if weights is not None else DEFAULT_WEIGHTS
     score = 0.0
@@ -148,6 +183,16 @@ def _score_features(
         score += w.get("artist", 0.0)
         reasons.append(f"by an artist you like ({song['artist']})")
 
+    # Cultural relevance, from retrieval over the Wikipedia corpus. This is the
+    # only term that can respond to something the feature columns do not
+    # encode, such as a tradition or a region.
+    similarity, match = retrieval_boost(song, boosts)
+    if match is not None:
+        score += RETRIEVAL_WEIGHT * similarity
+        reasons.append(
+            f"culturally relevant via {match['document']['wiki_title']}"
+        )
+
     return score, reasons
 
 
@@ -157,16 +202,23 @@ class Recommender:
     Required by tests/test_recommender.py
     """
 
-    def __init__(self, songs: List[Song], weights: Optional[Dict[str, float]] = None):
+    def __init__(
+        self,
+        songs: List[Song],
+        weights: Optional[Dict[str, float]] = None,
+        boosts: Optional[Dict] = None,
+    ):
         self.songs = songs
         self.weights = weights
+        self.boosts = boosts
 
     '''
     function takes in only 1 song, scores and and also gives reasons for why it is scored that way
     '''
     def _score(self, user: UserProfile, song: Song) -> Tuple[float, List[str]]:
         """Score a Song against a UserProfile, returning (score, reasons)."""
-        return _score_features(user.to_prefs(), asdict(song), self.weights)
+        return _score_features(user.to_prefs(), asdict(song), self.weights,
+                               self.boosts)
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
         """Return the top-k songs for a user, ranked by score (highest first)."""
@@ -223,6 +275,7 @@ def score_song(
     user_prefs: Dict,
     song: Dict,
     weights: Optional[Dict[str, float]] = None,
+    boosts: Optional[Dict] = None,
 ) -> Tuple[float, List[str]]:
     """
     Scores a single song against user preferences.
@@ -231,7 +284,7 @@ def score_song(
     user_prefs keys: "genre", "mood", "energy", and optionally "artist",
     "valence", "danceability", "likes_acoustic".
     """
-    return _score_features(user_prefs, song, weights)
+    return _score_features(user_prefs, song, weights, boosts)
 
 
 def recommend_songs(
@@ -239,6 +292,7 @@ def recommend_songs(
     songs: List[Dict],
     k: int = 5,
     weights: Optional[Dict[str, float]] = None,
+    boosts: Optional[Dict] = None,
 ) -> List[Tuple[Dict, float, str]]:
     """
     Functional implementation of the recommendation logic. Returns the top-k
@@ -247,7 +301,7 @@ def recommend_songs(
     """
     scored: List[Tuple[Dict, float, str]] = []
     for song in songs:
-        score, reasons = score_song(user_prefs, song, weights)
+        score, reasons = score_song(user_prefs, song, weights, boosts)
         explanation = "; ".join(reasons) if reasons else "general match"
         scored.append((song, score, explanation))
 
