@@ -103,6 +103,182 @@ Prompts:
 
 ---
 
+### 6b. Limitations of the scaled-up (culturally aware) version
+
+Notes captured while profiling the source data, before building. Written down early so
+they don't get lost or quietly forgotten once the system starts producing nice-looking output.
+
+#### Source data
+
+The catalog is built from a public Spotify-derived dataset: **114,000 tracks, 114 genre labels**
+(many write-ups say 125; the file has 114). Every label holds exactly 1,000 rows, so the dataset
+was assembled by filling a quota per label rather than by sampling music as it exists.
+
+Profiling the top tracks of 30 candidate labels showed that most labels do not describe their
+contents.
+
+**1. Unreliable genre labels**
+
+| Label | Actually returns | Verdict |
+|---|---|---|
+| `latin`, `latino`, `reggaeton`, `reggae` | **Identical** top tracks — Bad Bunny, Manuel Turizo | 4 labels, 1 bucket |
+| `world-music` | Hillsong, Bethel Music, Chris Tomlin — worship pop | wrong |
+| `afrobeat` | Led by Calle 13, a Puerto Rican rap group | wrong |
+| `ska` | Led by The Offspring | wrong |
+| `dub` | Led by ILLENIUM, Porter Robinson | wrong |
+| `brazil` | EDM producers | wrong |
+| `pagode` | Anitta | wrong |
+| `iranian` | Diaspora ambient/metal, popularity 20–35 | unusable |
+| `forro` / `sertanejo` | Same artists as each other | duplicated |
+
+About 14 of the 30 held up, including `tango`, `salsa`, `indian`, `turkish`, `j-pop`, `k-pop`,
+`mandopop`, `cantopop`, `mpb`, `samba`, `french`, `spanish`, `swedish`. That some labels work is
+what makes the broken ones diagnosable rather than uniform noise.
+
+**2. The first reading of that evidence was wrong**
+
+An initial pass concluded that `afrobeat` held no Fela Kuti and `reggae` no Bob Marley. Both were
+false — 5 Fela tracks and 10 Marley tracks are present, and Cesária Évora sits inside
+`world-music`. They were simply outranked: Bad Bunny scores 94–98 and buried Marley at 78; Calle
+13 at 75 buried Fela at 48.
+
+> The labels are **polluted**, not empty — and sorting by popularity surfaces the pollution first.
+
+The profiling method carried its own bias. Popularity-ordered sampling showed the loudest entries,
+not the representative ones.
+
+**3. The taxonomy is a browse menu, not a classification**
+
+Roughly fifteen of the 114 "genres" are moods, contexts, instruments, or franchises rather than
+genres: `happy`, `sad`, `chill`, `study`, `sleep`, `party`, `romance`, `comedy`, `kids`, `disney`,
+`anime`, `guitar`, `piano`, `show-tunes`, `groove`.
+
+**4. Uneven representation**
+
+| Category | Labels |
+|---|---|
+| Japan | 4 |
+| Metal | 6 |
+| **Entire African continent** | **1, mislabelled** |
+| "Everywhere else" | 1 (`world-music`, holding worship pop) |
+
+No Ethiopian, Arabic, North African, South African, Andean, Balkan, or Indigenous category exists.
+"Diverse" here means *diverse within one Western streaming platform's browse menu*.
+
+**5. Response: select by artist, not by label**
+
+| Field | Source |
+|---|---|
+| `energy`, `valence`, `danceability`, `acousticness`, `tempo` | Kept — measured per track, unaffected by mislabelling |
+| `artists`, `track_name` | Kept — correct |
+| `genre`, `region`, `mood` | **Assigned by hand** |
+
+The music was mis-filed, not missing. Verification then covers a readable list of ~80 artist names
+instead of 114,000 unverifiable rows.
+
+This substitutes one curator's bias for the platform's, which is not automatically an improvement —
+a different curator produces a different list. Its only real advantage is that the list is
+*inspectable*, where the platform's labelling is undocumented. It also does not scale: it works at
+100 songs because a human can check 100 songs, which is exactly why the original labelling was
+automated and wrong.
+
+**6. Traditions that could not be recovered at all**
+
+Searching all 114,000 rows by artist name returned nothing for Arabic and North African music
+(Umm Kulthum, Fairuz, Amr Diab, Rachid Taha), Senegalese music (Youssou N'Dour, Baaba Maal),
+Southeast Asian music (Rhoma Irama, Iwan Fals), or Miriam Makeba. Ethiopian music yielded exactly
+one artist, Mulatu Astatke; Mahmoud Ahmed, Aster Aweke, Teddy Afro and Tilahun Gessesse are all
+absent.
+
+The finished catalog therefore contains **one Ethiopian artist and zero Arabic ones**. This is a
+hard gap that no amount of cleaning closes.
+
+**7. Mechanical defects — these are fixable**
+
+| Defect | Scale | Fix |
+|---|---|---|
+| Duplicate `track_id` | 21.3% of rows; 16,641 tracks under multiple labels | Deduplicate |
+| `tempo` of 0 | Not a possible tempo | Drop or flag |
+| Missing `artists` / `track_name` / `album_name` | 1 row | Drop |
+
+These are cleaning problems: the value is malformed and a rule fixes it. The label problem is not —
+the field is well-formed and the content is simply wrong. That is a *fitness-for-purpose*
+limitation, and the only honest responses are to narrow scope, cross-check elsewhere, and
+disclose. Disclosure is the part that is not optional.
+
+**8. Limits of the audio features themselves**
+
+- **Proprietary and opaque.** `energy`, `valence`, `danceability`, and `acousticness` are
+  Spotify's derived metrics with no published methodology, so "energy 0.82" cannot be
+  independently verified.
+- **No longer reproducible.** The `audio-features` endpoint was deprecated on 27 November 2024
+  with no replacement, making this dataset a frozen snapshot.
+- **Platform coverage is a bias.** Only music distributed on Spotify can appear; much traditional,
+  regional, devotional, and non-commercially-released music is absent.
+- **Popularity skew** under-represents older recordings and non-anglophone catalogues.
+
+#### Cultural representation
+
+- **Genre is a weak proxy for culture.** The system uses genre (and artist) to infer a `region`,
+  but a genre label is not a culture, and an artist's nationality is not the culture a song
+  belongs to. Treating them as equivalent is a simplification the user never sees.
+- **The `mood` field is derived, not measured.** The source data has no mood column, so mood is
+  computed from the valence/energy quadrant. That mapping is an invention of this project.
+- **Mood categories are not culturally neutral.** Emotional categories do not translate cleanly
+  between musical traditions. Ethiopian *tizita* and Portuguese *saudade* both get flattened into
+  something like "nostalgic" or "sad", which loses most of what the word actually means. The
+  vocabulary of moods is itself a Western-inflected choice.
+- **The RAG corpus is unevenly rich, in a way that works against the project's goal.**
+  Cultural context is retrieved from Wikipedia, whose coverage is far deeper for Western and
+  anglophone artists than for many non-Western ones. So the system will produce its most
+  detailed, most convincing cultural explanations for exactly the music that needs the least
+  explaining — and its thinnest for the music the project exists to surface. Confidence in the
+  output will not correlate with how well the system actually understands the tradition.
+- **English Wikipedia carries an anglophone editorial perspective**, including in how it frames
+  non-Western musical traditions.
+- **Risk of stereotyping by inferred identity.** A system that recommends "culturally" can easily
+  slide into inferring a user's ethnicity or nationality and then narrowing their results to it.
+  That is both offensive and simply a worse recommender. The design response: the system keys off
+  *stated taste and occasion only*, never inferred identity. A user volunteering where they are
+  from is treated as one soft signal among many, never as a filter. Requests framed as
+  "what do people from X listen to" are reframed rather than answered.
+
+#### System design
+
+- **Content-based only.** There is no collaborative signal — no "people who liked this also liked"
+  — and no learning across sessions from what a user accepts or skips. Recommendations depend
+  entirely on the stated profile and the song features.
+- **Strategy escalation can degrade silently if disclosure fails.** When a step does not work, the
+  system tries a genuinely different method rather than repeating itself: retrieval falls back from
+  exact filtering, to semantic search, to progressively dropping constraints; unknown values are
+  normalised, then fuzzy-matched, then ignored; an unrankable profile switches from scoring to a
+  diverse sample; a missing cultural note falls back from song, to artist, to genre level, and
+  finally to making no cultural claim at all. The risk is that a result produced on the fifth rung
+  of a fallback ladder looks exactly as confident as one produced on the first. Every response
+  therefore has to report which strategy produced it — and that reporting is the part most likely
+  to get quietly dropped under time pressure.
+- **Fallbacks can mask real bugs.** A system that always returns something will keep returning
+  something when the cause is a genuine defect rather than a hard input. The trace log exists partly
+  so that a rising fallback rate stays visible instead of invisible.
+- **Explanations are templated, not generated.** With no LLM in the pipeline, explanations are
+  assembled from the score breakdown and retrieved text. This makes them grounded by construction
+  (nothing can be fabricated) but noticeably less fluent than model-written prose.
+- **Grounded is not the same as correct.** Every claim traces to a retrieved passage, but a
+  passage can itself be wrong or out of date. Citation proves provenance, not truth.
+- **User-set feature priorities can degenerate.** If a user prioritises everything, they have
+  prioritised nothing. Weights are renormalised to keep total weight constant, which means
+  raising one feature necessarily lowers others — a trade-off the user is not shown.
+- **The diversity cap is deliberately blunt.** Limiting how many songs one artist or region may
+  occupy in the top 5 will sometimes exclude a genuinely better-scoring match. This trades
+  accuracy for variety on purpose, but the user is not told a song was dropped.
+- **Known scoring bugs carried over from v1** (fixed in the guardrail stage, recorded here
+  because they are what motivated it): out-of-range input produced negative scores,
+  capitalisation mismatches silently failed to match, unknown values such as `saad` were ignored
+  without warning, and an empty profile returned the first five rows of the file dressed up as
+  a ranking.
+
+---
+
 ## 7. Evaluation  
 
 How you checked whether the recommender behaved as expected. 
