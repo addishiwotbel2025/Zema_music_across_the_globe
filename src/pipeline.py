@@ -26,7 +26,12 @@ project. The corpus was fetched once by build_corpus.py and is read from disk.
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from src.recommender import load_songs, recommend_songs, retrieval_boost
+from src.recommender import (
+    load_songs,
+    prioritise,
+    recommend_songs,
+    retrieval_boost,
+)
 from src.retrieval import CulturalIndex, summarise_document
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -38,11 +43,17 @@ def recommend(
     context_query: Optional[str] = None,
     k: int = 5,
     weights: Optional[Dict[str, float]] = None,
+    priorities: Optional[List[str]] = None,
     songs: Optional[List[Dict]] = None,
     index: Optional[CulturalIndex] = None,
 ) -> Dict:
     """
     Produce recommendations, optionally informed by a free-text context query.
+
+    `priorities` names features the user wants weighted more heavily; the
+    weights are rebalanced so the total is unchanged, making it a trade-off
+    rather than a volume control. Explicit `weights` take precedence if both
+    are given.
 
     Returns the recommendations together with what retrieval did, so a caller
     can show whether a cultural claim was involved and where it came from.
@@ -50,6 +61,8 @@ def recommend(
     nothing to say about the query, which the caller may want to act on.
     """
     songs = songs if songs is not None else load_songs(str(SONGS_CSV))
+    if weights is None and priorities:
+        weights = prioritise(priorities)
 
     boosts: Dict = {}
     retrieved: List[Dict] = []

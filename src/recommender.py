@@ -8,7 +8,7 @@ thin adapters over it, so the dataclass API (`Recommender`) and the dict API
 
 import csv
 from dataclasses import asdict, dataclass
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 # --- Scoring weights -------------------------------------------------------
 # Genre is the broadest taste signal, so it leads; mood and energy refine
@@ -39,7 +39,13 @@ DEFAULT_WEIGHTS: Dict[str, float] = {
 # genre weight is 3.0. Scaling by this factor makes a strong cultural match
 # worth roughly what a genre match is worth: enough to change the ranking,
 # not enough to override everything else the user asked for.
+#
+# This number is set by hand and has no principled derivation. Halving it
+# changes which songs win. It is recorded as a limitation in model_card.md.
 RETRIEVAL_WEIGHT = 10.0
+
+# How much a prioritised feature is favoured before weights are renormalised.
+PRIORITY_FACTOR = 2.5
 
 # Features scored by closeness between a user's target and the song's value.
 _PROXIMITY_FEATURES = ("energy", "valence", "danceability")
@@ -101,6 +107,54 @@ class UserProfile:
         if self.target_danceability is not None:
             prefs["danceability"] = self.target_danceability
         return prefs
+
+
+def prioritise(
+    features: Sequence[str],
+    base: Optional[Dict[str, float]] = None,
+    factor: float = PRIORITY_FACTOR,
+) -> Dict[str, float]:
+    """
+    Return a weight set that favours the named features.
+
+    Chosen features are multiplied by `factor`, then every weight is scaled so
+    the total is unchanged. Renormalising is the point: without it, prioritising
+    a feature just inflates every score that touches it, and prioritising all
+    seven would inflate everything equally while claiming to be a preference.
+    With it, raising one feature necessarily lowers the others, which is what a
+    priority actually means.
+
+    Prioritising every feature therefore returns the default weights exactly.
+    That is correct, not a bug: no feature has been preferred over another.
+
+    RETRIEVAL_WEIGHT is deliberately outside this pool. At 10.0 against taste
+    weights totalling 12.0, including it would let cultural relevance absorb
+    most of the budget. It stays a separate dial.
+
+    Raises ValueError on an unknown feature name rather than ignoring it, so a
+    typo cannot silently produce default behaviour. Tolerating typos is the
+    guardrail layer's job, where it can be done once for all user input.
+    """
+    weights = dict(base if base is not None else DEFAULT_WEIGHTS)
+    if not features:
+        return weights
+
+    unknown = [f for f in features if f not in weights]
+    if unknown:
+        raise ValueError(
+            f"unknown feature(s): {', '.join(sorted(unknown))}. "
+            f"choose from: {', '.join(sorted(weights))}"
+        )
+
+    original_total = sum(weights.values())
+    for feature in set(features):
+        weights[feature] *= factor
+
+    boosted_total = sum(weights.values())
+    if boosted_total <= 0:
+        return weights
+    scale = original_total / boosted_total
+    return {name: value * scale for name, value in weights.items()}
 
 
 def retrieval_boost(song: Dict, boosts: Optional[Dict]) -> Tuple[float, Optional[Dict]]:
