@@ -26,6 +26,7 @@ project. The corpus was fetched once by build_corpus.py and is read from disk.
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from src.guardrails import apply_guardrails
 from src.recommender import (
     load_songs,
     prioritise,
@@ -37,7 +38,75 @@ from src.retrieval import CulturalIndex, summarise_document
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SONGS_CSV = PROJECT_ROOT / "data" / "songs.csv"
 
+# we use this function if user query doesn't have valid info
+# that can help us make a recommendation
+def _diverse_sample(songs: List[Dict], k: int) -> List[Dict]:
+    """
+    Pick up to k songs spread across genres, instead of file order.
 
+    Used when guardrails.apply_guardrails() finds a profile with no usable
+    preferences: returning the first k CSV rows would look like a ranking
+    without being one. Grouping by genre and taking one song per genre per
+    round means the result is at least varied, and the caller is told (via
+    strategy="diverse_sample" in the result) that this isn't a ranking.
+    """
+    # creates a dict grouped by genre
+    by_genre: Dict[str, List[Dict]] = {}
+
+    for song in songs:
+        # adds new songs by genre
+        by_genre.setdefault(song["genre"], []).append(song)
+    for group in by_genre.values():
+        # sorts the songs
+        group.sort(key=lambda s: s["id"])
+
+    genres = sorted(by_genre)
+    sample: List[Dict] = []
+    
+    '''
+    Keep selecting songs while:
+    We haven't reached k songs, AND
+    There are still songs available in at least one genre.
+    '''
+    round_index = 0
+    while len(sample) < k and round_index < max(len(g) for g in by_genre.values()):
+        for genre in genres:
+            group = by_genre[genre]
+            if round_index < len(group):
+                sample.append(group[round_index])
+                if len(sample) >= k:
+                    break
+        round_index += 1
+    return sample
+
+'''
+input: 
+user preferences
++ optional cultural/context query
+
+output:
+ranked song recommendations
++ information about the cultural retrieval used
++ citations/explanations when available
+
+The important distinction is that retrieval only 
+happens if the user provides a context query.
+
+prefs + context_query
+        ↓
+load songs
+        ↓
+if there's a context query:
+    search cultural corpus
+        ↓
+    get artist/genre boosts
+        ↓
+score songs
+        ↓
+attach cultural citation if relevant
+        ↓
+return recommendations
+'''
 def recommend(
     prefs: Dict,
     context_query: Optional[str] = None,
@@ -64,6 +133,9 @@ def recommend(
     if weights is None and priorities:
         weights = prioritise(priorities)
 
+    guardrail_result = apply_guardrails(prefs, songs)
+    prefs = guardrail_result.prefs
+
     boosts: Dict = {}
     retrieved: List[Dict] = []
     if context_query and context_query.strip():
@@ -74,8 +146,20 @@ def recommend(
              "url": document["url"], "strategy": document["strategy"]}
             for document, score in index.search(context_query)
         ]
+    '''
+    if query doesn't have relevant info, just recommend a range of diverse songs
+    else, recommend songs according to ranking
+    '''
+    if guardrail_result.unrankable:
 
-    ranked = recommend_songs(prefs, songs, k=k, weights=weights, boosts=boosts)
+        strategy = "diverse_sample"
+        # example output: (song2, 0.0, "no preferences given")
+        # provides a reason for why song isnt scored
+        ranked = [(song, 0.0, "no preferences given") for song in
+                  _diverse_sample(songs, k)]
+    else:
+        strategy = "ranked"
+        ranked = recommend_songs(prefs, songs, k=k, weights=weights, boosts=boosts)
 
     results: List[Dict] = []
     for song, score, _ in ranked:
@@ -97,16 +181,28 @@ def recommend(
         "context_query": context_query,
         "retrieval_used": bool(context_query and context_query.strip()),
         "retrieved": retrieved,
+        "strategy": strategy,
+        # returns issues encountered when guardrail is applied
+        "guardrail_issues": [str(issue) for issue in guardrail_result.issues],
         "recommendations": results,
     }
 
-
+'''
+This takes the dictionary produced by recommend() 
+and turns it into human-readable terminal output.
+'''
 def format_result(result: Dict) -> str:
     """Render a recommendation result for the terminal."""
     lines: List[str] = []
     query = result["context_query"]
     lines.append(f"context query: {query!r}" if result["retrieval_used"]
                  else "context query: (none — retrieval disabled)")
+
+    # reports issues encountered when applying a guardrail, ex: clamping a value
+    if result["guardrail_issues"]:
+        lines.append("guardrails:")
+        for issue in result["guardrail_issues"]:
+            lines.append(f"    {issue}")
 
     if result["retrieval_used"]:
         if result["retrieved"]:
@@ -119,6 +215,14 @@ def format_result(result: Dict) -> str:
             lines.append("retrieved: nothing above the similarity threshold")
 
     lines.append("")
+
+    # lets user know if query is unrankable, we are recommending a diverse set of songs 
+    # for exploration, no basis for recommendation
+    # else, suggest ranked recommendation.
+    if result["strategy"] == "diverse_sample":
+        lines.append("no usable preferences — diverse sample, not a ranking:")
+    else:
+        lines.append("recommendations:")
     for position, item in enumerate(result["recommendations"], start=1):
         song = item["song"]
         lines.append(f"  {position}. {song['title']} — {song['artist']}")
@@ -132,7 +236,14 @@ def format_result(result: Dict) -> str:
             lines.append(f"       {citation['url']}")
     return "\n".join(lines)
 
+'''
+its a testing function to check whether cultural retireval improves
+recommendations or not
 
+Ex: "ethiopian jazz"
+without retrieval → normal feature-based ranking
+with retrieval → culturally relevant songs get boosted
+'''
 def _compare(prefs: Dict, query: str, songs: List[Dict],
              index: CulturalIndex) -> None:
     """
