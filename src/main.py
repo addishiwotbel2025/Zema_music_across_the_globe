@@ -8,7 +8,8 @@ Run from the project root with:
 
 from pathlib import Path
 
-from src.recommender import load_songs, recommend_songs
+from src.pipeline import format_result, recommend
+from src.recommender import load_songs
 
 # Resolve data files relative to this file, not the shell's working directory,
 # so the app runs the same way from anywhere.
@@ -30,8 +31,8 @@ def main() -> None:
     songs = load_songs(str(SONGS_CSV))
     for name, prefs in profiles.items():
         print(f"\n=== {name}: {prefs} ===")
-        for song, score, explanation in recommend_songs(prefs, songs, k=5):
-            print(f"{song['title']} - Score: {score:.2f}  ({explanation})")
+        result = recommend(prefs, songs=songs, k=5)
+        print(format_result(result))
 
     
 

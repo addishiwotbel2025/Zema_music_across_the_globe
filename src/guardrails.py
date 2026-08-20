@@ -81,9 +81,14 @@ _CATEGORICAL_FIELDS = ("genre", "mood", "artist")
 
 # How close a misspelled value has to be to a real one (0-1 similarity from
 # difflib) before it's auto-corrected rather than treated as unrecognisable.
-# 0.6 catches "afrobeat" -> "afrobeats" without also matching two genres that
-# just happen to share a few letters.
-_FUZZY_CUTOFF = 0.6
+#
+# Real typos and "different value that happens to share letters" land in two
+# distinguishable score bands, not a continuum: single-edit typos like
+# "reggeaton"->"reggaeton" score 0.89, "salsa"->"salza" scores 0.80, but a
+# short value that is genuinely absent and merely a substring of a real one,
+# like "pop" (not in this catalog) against "k-pop", still scores 0.75 despite
+# being a wrong guess, not a correction. 0.8 sits between those bands.
+_FUZZY_CUTOFF = 0.8
 
 # guardrail for capitalization and whitespace
 def _resolve_categorical(prefs: Dict, songs: List[Dict],
