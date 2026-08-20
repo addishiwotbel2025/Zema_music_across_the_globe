@@ -1,0 +1,12 @@
+flowchart TD
+    A["User preferences (dict)<br/>+ optional context query + k"] --> B["load_songs()<br/>recommender.py"]
+    B --> C["apply_guardrails(prefs, songs)<br/>guardrails.py"]
+    C -->|cleaned prefs + issues| D{"context_query<br/>given?"}
+    D -->|yes| E["CulturalIndex.boosts() / search()<br/>retrieval.py<br/>searches Wikipedia corpus"]
+    D -->|no| F{"unrankable?"}
+    E --> F
+    F -->|yes| G["_diverse_sample()<br/>pipeline.py<br/>spread across genres, score = 0"]
+    F -->|no| H["recommend_songs()<br/>recommender.py<br/>weighted feature scoring + retrieval boost"]
+    G --> I["Attach citations<br/>retrieval_boost() + summarise_document()"]
+    H --> I
+    I --> J["Result dict:<br/>recommendations, strategy,<br/>guardrail_issues, retrieved"]

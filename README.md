@@ -82,6 +82,25 @@ I also learned how RAG can make recommendations more reliable by grounding the s
 
 ## How The System Works
 
+### Architecture
+
+Source: [`diagrams/architecture.mmd`](diagrams/architecture.mmd)
+
+```mermaid
+flowchart TD
+    A["User preferences (dict)<br/>+ optional context query + k"] --> B["load_songs()<br/>recommender.py"]
+    B --> C["apply_guardrails(prefs, songs)<br/>guardrails.py"]
+    C -->|cleaned prefs + issues| D{"context_query<br/>given?"}
+    D -->|yes| E["CulturalIndex.boosts() / search()<br/>retrieval.py<br/>searches Wikipedia corpus"]
+    D -->|no| F{"unrankable?"}
+    E --> F
+    F -->|yes| G["_diverse_sample()<br/>pipeline.py<br/>spread across genres, score = 0"]
+    F -->|no| H["recommend_songs()<br/>recommender.py<br/>weighted feature scoring + retrieval boost"]
+    G --> I["Attach citations<br/>retrieval_boost() + summarise_document()"]
+    H --> I
+    I --> J["Result dict:<br/>recommendations, strategy,<br/>guardrail_issues, retrieved"]
+```
+
 Each `Song` carries seven features the scorer can use: `genre`, `mood`, `energy`, `valence`, `danceability`, `acousticness`, and `artist`. A `UserProfile` stores what the listener wants on those same dimensions — `favorite_genre`, `favorite_mood`, `target_energy`, `likes_acoustic`, and optionally `favorite_artist`, `target_valence`, and `target_danceability`.
 
 Scoring works by comparing a profile against a song feature by feature and adding up how well each one matches, weighted by how much that feature should count:
