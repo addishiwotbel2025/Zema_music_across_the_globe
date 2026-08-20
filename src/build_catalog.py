@@ -219,6 +219,7 @@ def load_candidates() -> tuple:
             record = {
                 "title": row["track_name"].strip(),
                 "artist": primary_artist(row["artists"]),
+                "track_id": track_id,
                 **values,
             }
 
@@ -272,7 +273,8 @@ def select(by_genre: Dict, by_artist: Dict) -> List[Dict]:
 def write_catalog(rows: List[Dict]) -> None:
     """Write the catalog, assigning stable ids in output order."""
     columns = ["id", "title", "artist", "genre", "mood", "energy", "tempo_bpm",
-               "valence", "danceability", "acousticness", "region", "source"]
+               "valence", "danceability", "acousticness", "region", "source",
+               "track_id"]
 
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
@@ -292,6 +294,7 @@ def write_catalog(rows: List[Dict]) -> None:
                 "acousticness": f"{row['acousticness']:.2f}",
                 "region": row["region"],
                 "source": row["source"],
+                "track_id": row["track_id"],
             })
 
 

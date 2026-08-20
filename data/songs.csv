@@ -1,160 +1,160 @@
-id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness,region,source
-1,Ruby,Ali Farka Touré,desert blues,melancholic,0.31,178,0.41,0.36,0.80,Mali,artist-allowlist
-2,Ai Du (with Ry Cooder),Ali Farka Touré,desert blues,melancholic,0.23,152,0.41,0.57,0.31,Mali,artist-allowlist
-3,Monsieur le Maire de Niafunké,Ali Farka Touré,desert blues,melancholic,0.43,100,0.38,0.59,0.80,Mali,artist-allowlist
-4,Ilbiwa,Amadou & Mariam,mande,intense,0.70,96,0.32,0.60,0.49,Mali,artist-allowlist
-5,Poulo,Amadou & Mariam,mande,celebratory,0.88,119,0.70,0.66,0.12,Mali,artist-allowlist
-6,Beki Miri,Amadou & Mariam,mande,celebratory,0.68,174,0.70,0.60,0.20,Mali,artist-allowlist
-7,Ömrümün Sonbaharında,Barış Manço,anatolian rock,melancholic,0.25,72,0.35,0.53,0.83,Turkey,artist-allowlist
-8,Kol Düğmeleri,Barış Manço,anatolian rock,melancholic,0.19,78,0.17,0.26,0.76,Turkey,artist-allowlist
-9,İşte Hendek İşte Deve,Barış Manço,anatolian rock,celebratory,0.83,93,0.78,0.68,0.22,Turkey,artist-allowlist
-10,Drive - Edit,Black Coffee,south african house,intense,0.79,118,0.43,0.72,0.00,South Africa,artist-allowlist
-11,Turn Me On,Black Coffee,south african house,celebratory,0.78,123,0.57,0.79,0.00,South Africa,artist-allowlist
-12,Never Gonna Forget (with Diplo feat. Elderbrook),Black Coffee,south african house,intense,0.68,120,0.46,0.69,0.04,South Africa,artist-allowlist
-13,Three Little Birds,Bob Marley & The Wailers,reggae,warm,0.49,74,0.63,0.83,0.01,Jamaica,artist-allowlist
-14,Could You Be Loved,Bob Marley & The Wailers,reggae,celebratory,0.72,103,0.76,0.92,0.36,Jamaica,artist-allowlist
-15,Is This Love,Bob Marley & The Wailers,reggae,warm,0.56,122,0.76,0.78,0.11,Jamaica,artist-allowlist
-16,For My Hand (feat. Ed Sheeran),Burna Boy,afrobeats,warm,0.48,104,0.72,0.87,0.16,Nigeria,artist-allowlist
-17,It's Plenty,Burna Boy,afrobeats,warm,0.56,107,0.53,0.78,0.36,Nigeria,artist-allowlist
-18,Gbona,Burna Boy,afrobeats,celebratory,0.81,94,0.94,0.80,0.56,Nigeria,artist-allowlist
-19,African Teacher,Burning Spear,roots reggae,warm,0.52,78,0.96,0.78,0.20,Jamaica,artist-allowlist
-20,Greetings,Burning Spear,roots reggae,warm,0.33,76,0.69,0.80,0.07,Jamaica,artist-allowlist
-21,Sodade,Cesária Evora,morna,melancholic,0.43,83,0.43,0.57,0.82,Cape Verde,artist-allowlist
-22,Tiempo Y Silencio,Cesária Evora,morna,melancholic,0.37,120,0.41,0.71,0.85,Cape Verde,artist-allowlist
-23,Pa Manyen Fanm Nan,Cesária Evora,morna,warm,0.53,180,0.76,0.77,0.34,Cape Verde,artist-allowlist
-24,Here Comes Trouble,Chronixx,reggae revival,celebratory,0.79,83,0.79,0.76,0.16,Jamaica,artist-allowlist
-25,Skankin' Sweet,Chronixx,reggae revival,celebratory,0.66,78,0.71,0.74,0.07,Jamaica,artist-allowlist
-26,Water No Get Enemy,Fela Kuti,afrobeat,celebratory,0.93,91,0.88,0.64,0.11,Nigeria,artist-allowlist
-27,Zombie,Fela Kuti,afrobeat,celebratory,0.94,131,0.57,0.67,0.39,Nigeria,artist-allowlist
-28,Expensive Shit,Fela Kuti,afrobeat,celebratory,0.88,124,0.68,0.61,0.22,Nigeria,artist-allowlist
-29,Pes to gia mena (feat. Eleni Vitali),George Dalaras,laiko,intense,0.67,108,0.46,0.52,0.32,Greece,artist-allowlist
-30,El Cascabel (Son Jarocho),George Dalaras,laiko,celebratory,0.79,90,0.74,0.56,0.71,Greece,artist-allowlist
-31,Mia Stigmi Gia Pada - Ap' To Tango Ton Hristougennon,George Dalaras,laiko,melancholic,0.38,113,0.33,0.49,0.34,Greece,artist-allowlist
-32,Night Nurse,Gregory Isaacs,lovers rock,warm,0.37,74,0.90,0.82,0.04,Jamaica,artist-allowlist
-33,Cool Down The Pace,Gregory Isaacs,lovers rock,warm,0.30,76,0.93,0.87,0.12,Jamaica,artist-allowlist
-34,Red Rose For Gregory,Gregory Isaacs,lovers rock,warm,0.54,82,0.82,0.78,0.09,Jamaica,artist-allowlist
-35,Grazing In The Grass,Hugh Masekela,south african jazz,celebratory,0.70,107,0.91,0.67,0.52,South Africa,artist-allowlist
-36,Been Such A Long Time Gone,Hugh Masekela,south african jazz,celebratory,0.66,107,0.70,0.54,0.24,South Africa,artist-allowlist
-37,Marketplace,Hugh Masekela,south african jazz,warm,0.25,92,0.56,0.70,0.68,South Africa,artist-allowlist
-38,Footprints,Jimmy Cliff,reggae,warm,0.37,144,0.76,0.67,0.68,Jamaica,artist-allowlist
-39,"Wonderful World, Beautiful People",Jimmy Cliff,reggae,warm,0.55,107,0.83,0.73,0.04,Jamaica,artist-allowlist
-40,Jerusalema (feat. Nomcebo Zikode),Master KG,south african house,warm,0.48,124,0.83,0.88,0.02,South Africa,artist-allowlist
-41,Jerusalema (Edit),Master KG,south african house,warm,0.55,124,0.87,0.90,0.02,South Africa,artist-allowlist
-42,Zorba's Dance,Mikis Theodorakis,greek folk,melancholic,0.39,82,0.42,0.56,0.29,Greece,artist-allowlist
-43,Tosa Chronia,Mikis Theodorakis,greek folk,melancholic,0.38,88,0.16,0.41,0.86,Greece,artist-allowlist
-44,Eimaste Dyo,Mikis Theodorakis,greek folk,celebratory,0.61,119,0.99,0.68,0.77,Greece,artist-allowlist
-45,Tezeta (Nostalgia),Mulatu Astatke,ethio-jazz,warm,0.36,81,0.50,0.55,0.95,Ethiopia,artist-allowlist
-46,Yègellé Tezeta,Mulatu Astatke,ethio-jazz,warm,0.23,126,0.78,0.84,0.74,Ethiopia,artist-allowlist
-47,Tezeta,Mulatu Astatke,ethio-jazz,warm,0.25,81,0.54,0.55,0.96,Ethiopia,artist-allowlist
-48,Haydar Haydar,Neşet Ertaş,turkish folk,melancholic,0.34,85,0.22,0.41,0.87,Turkey,artist-allowlist
-49,Entre Dos Aguas - Remastered 2014,Paco de Lucía,flamenco,celebratory,0.92,103,0.92,0.43,0.92,Spain,artist-allowlist
-50,Johnny B. Goode - 2002 Remaster,Peter Tosh,reggae,celebratory,0.85,145,0.96,0.75,0.03,Jamaica,artist-allowlist
-51,Legalize It,Peter Tosh,reggae,warm,0.59,145,0.65,0.71,0.07,Jamaica,artist-allowlist
-52,Brand New Second Hand,Peter Tosh,reggae,celebratory,0.63,75,0.81,0.72,0.13,Jamaica,artist-allowlist
-53,Calm Down (with Selena Gomez),Rema,afrobeats,celebratory,0.81,107,0.80,0.80,0.38,Nigeria,artist-allowlist
-54,Da,Salif Keita,mande,celebratory,0.80,110,0.62,0.73,0.27,Mali,artist-allowlist
-55,Baba,Salif Keita,mande,celebratory,0.71,154,0.69,0.69,0.32,Mali,artist-allowlist
-56,Ekolo D'Amour,Salif Keita,mande,celebratory,0.80,111,0.84,0.77,0.64,Mali,artist-allowlist
-57,Yuh Yuh,Selda Bağcan,anatolian rock,celebratory,0.76,100,0.65,0.81,0.30,Turkey,artist-allowlist
-58,Acem Kızı,Selda Bağcan,anatolian rock,melancholic,0.31,130,0.26,0.51,0.85,Turkey,artist-allowlist
-59,Telli Telli,Selda Bağcan,anatolian rock,warm,0.38,100,0.71,0.69,0.49,Turkey,artist-allowlist
-60,Karşıyım,Sezen Aksu,turkish pop,celebratory,0.87,150,0.82,0.70,0.31,Turkey,artist-allowlist
-61,Yanmışım Sönmüşüm Ben,Sezen Aksu,turkish pop,celebratory,0.82,125,0.82,0.72,0.06,Turkey,artist-allowlist
-62,Yavrucanım - İyilikle Büyüsün,Sezen Aksu,turkish pop,melancholic,0.23,173,0.44,0.43,0.93,Turkey,artist-allowlist
-63,Bam Bam,Sister Nancy,dancehall,celebratory,0.60,166,0.71,0.72,0.82,Jamaica,artist-allowlist
-64,Wolf Totem,The HU,mongolian folk metal,intense,0.72,172,0.49,0.56,0.09,Mongolia,artist-allowlist
-65,Yuve Yuve Yu,The HU,mongolian folk metal,intense,0.86,132,0.32,0.62,0.02,Mongolia,artist-allowlist
-66,Toumast Tincha,Tinariwen,tuareg rock,intense,0.66,87,0.19,0.30,0.48,Mali,artist-allowlist
-67,Nànnuflày,Tinariwen,tuareg rock,melancholic,0.48,118,0.30,0.60,0.85,Mali,artist-allowlist
-68,Sastanàqqàm,Tinariwen,tuareg rock,intense,0.66,99,0.43,0.73,0.03,Mali,artist-allowlist
-69,Jaiye Foreign,Tiwa Savage,afrobeats,celebratory,0.82,109,0.86,0.82,0.02,Nigeria,artist-allowlist
-70,Somebody’s Son (Ft Brandy),Tiwa Savage,afrobeats,celebratory,0.81,107,0.51,0.70,0.14,Nigeria,artist-allowlist
-71,Ma Lo,Tiwa Savage,afrobeats,celebratory,0.72,105,0.65,0.79,0.42,Nigeria,artist-allowlist
-72,Beautiful Woman,Toots & The Maytals,ska,warm,0.57,178,0.94,0.57,0.01,Jamaica,artist-allowlist
-73,Essence (feat. Tems),Wizkid,afrobeats,celebratory,0.71,104,0.60,0.85,0.03,Nigeria,artist-allowlist
-74,Bad To Me,Wizkid,afrobeats,celebratory,0.82,110,0.91,0.86,0.07,Nigeria,artist-allowlist
-75,Essence (feat. Justin Bieber & Tems),Wizkid,afrobeats,celebratory,0.69,104,0.58,0.83,0.02,Nigeria,artist-allowlist
-76,風雨不改 (電影《阿媽有咗第二個》主題曲),Keung To,cantopop,melancholic,0.20,63,0.29,0.32,0.94,Hong Kong,genre-label
-77,"Dear My Friend,",Keung To,cantopop,melancholic,0.45,95,0.27,0.65,0.72,Hong Kong,genre-label
-78,孤勇者 - 《英雄聯盟:雙城之戰》動畫劇集中文主題曲,Eason Chan,cantopop,melancholic,0.54,130,0.29,0.61,0.63,Hong Kong,genre-label
-79,留一天與你喘息,陳卓賢 Ian,cantopop,melancholic,0.48,172,0.26,0.41,0.57,Hong Kong,genre-label
-80,Distance,陳卓賢 Ian,cantopop,celebratory,0.75,170,0.52,0.37,0.17,Hong Kong,genre-label
-81,老派約會之必要,MC 張天賦,cantopop,warm,0.56,107,0.63,0.68,0.50,Hong Kong,genre-label
-82,Give It To Me - Full Vocal Mix,Matt Sassari,french,celebratory,0.87,126,0.73,0.87,0.00,France,genre-label
-83,Balader,Soolking,french,celebratory,0.80,130,0.79,0.60,0.31,France,genre-label
-84,TOUT VA BIEN (feat. Ninho & Naps),Alonzo,french,celebratory,0.72,100,0.63,0.66,0.30,France,genre-label
-85,Tourner Dans Le Vide,Indila,french,intense,0.70,120,0.38,0.59,0.10,France,genre-label
-86,PETETE,Gambi,french,celebratory,0.67,156,0.63,0.75,0.17,France,genre-label
-87,Midnight City,M83,french,intense,0.73,105,0.27,0.51,0.02,France,genre-label
-88,"Kesariya (From ""Brahmastra"")",Pritam,indian,melancholic,0.57,94,0.44,0.58,0.57,India,genre-label
-89,"Deva Deva (From ""Brahmastra"")",Pritam,indian,intense,0.72,112,0.44,0.53,0.63,India,genre-label
-90,"Ranjha (From ""Shershaah"")",Jasleen Royal,indian,melancholic,0.57,83,0.24,0.60,0.48,India,genre-label
-91,Baarishein,Anuv Jain,indian,melancholic,0.12,94,0.19,0.47,0.93,India,genre-label
-92,"Rangisari (From ""Jugjugg Jeeyo"")",Kanishk Seth,indian,intense,0.76,140,0.32,0.52,0.27,India,genre-label
-93,"Doobey (From ""Gehraiyaan"")",OAFF,indian,intense,0.67,119,0.36,0.75,0.34,India,genre-label
-94,Shinunoga E-Wa,Fujii Kaze,j-pop,celebratory,0.76,158,0.52,0.60,0.17,Japan,genre-label
-95,Overdose,なとり,j-pop,warm,0.60,118,0.83,0.73,0.03,Japan,genre-label
-96,新時代 - ウタ from ONE PIECE FILM RED,Ado,j-pop,intense,0.99,175,0.42,0.49,0.05,Japan,genre-label
-97,祝福,YOASOBI,j-pop,celebratory,0.96,170,0.54,0.55,0.02,Japan,genre-label
-98,夜に駆ける,YOASOBI,j-pop,celebratory,0.87,130,0.79,0.67,0.00,Japan,genre-label
-99,Sway,Michael Bublé,j-pop,celebratory,0.64,126,0.74,0.71,0.75,Japan,genre-label
-100,After LIKE,IVE,k-pop,celebratory,0.92,125,0.80,0.68,0.10,South Korea,genre-label
-101,Shut Down,BLACKPINK,k-pop,celebratory,0.66,110,0.65,0.81,0.00,South Korea,genre-label
-102,Talk that Talk,TWICE,k-pop,celebratory,0.91,120,0.78,0.77,0.14,South Korea,genre-label
-103,Dynamite,BTS,k-pop,celebratory,0.77,114,0.74,0.75,0.01,South Korea,genre-label
-104,Pink Venom,BLACKPINK,k-pop,celebratory,0.72,90,0.69,0.79,0.01,South Korea,genre-label
-105,Yet To Come,BTS,k-pop,celebratory,0.89,172,0.68,0.56,0.04,South Korea,genre-label
-106,"如果可以 - 電影""月老""主題曲",WeiBird,mandopop,melancholic,0.54,75,0.37,0.54,0.24,Taiwan,genre-label
-107,"最後一堂課 - 《媽,別鬧了!》影集片尾曲",Eric Chou,mandopop,melancholic,0.54,74,0.35,0.55,0.77,Taiwan,genre-label
-108,閣愛妳一擺,EggPlantEgg,mandopop,celebratory,0.78,134,0.56,0.55,0.05,Taiwan,genre-label
-109,好不容易 (《華燈初上》片尾曲),告五人,mandopop,melancholic,0.54,174,0.17,0.38,0.31,Taiwan,genre-label
-110,"你,好不好? - TVBS連續劇【遺憾拼圖】片尾曲",Eric Chou,mandopop,warm,0.48,160,0.54,0.44,0.64,Taiwan,genre-label
-111,刻在我心底的名字 (Your Name Engraved Herein) - 電影<刻在你心底的名字>主題曲,Crowd Lu,mandopop,melancholic,0.20,136,0.27,0.42,0.87,Taiwan,genre-label
-112,Tuyo (Narcos Theme) [Extended Version] - A Netflix Original Series Soundtrack,Rodrigo Amarante,mpb,melancholic,0.50,112,0.46,0.77,0.49,Brazil,genre-label
-113,Tuyo (Narcos Theme) - A Netflix Original Series Soundtrack,Rodrigo Amarante,mpb,warm,0.42,112,0.55,0.72,0.47,Brazil,genre-label
-114,Sangrando,Gonzaguinha,mpb,melancholic,0.41,91,0.22,0.48,0.60,Brazil,genre-label
-115,Canteiros,Fagner,mpb,melancholic,0.27,140,0.42,0.44,0.86,Brazil,genre-label
-116,Deslizes,Fagner,mpb,melancholic,0.39,136,0.49,0.54,0.24,Brazil,genre-label
-117,O Vento - Acústico,Jota Quest,mpb,melancholic,0.23,145,0.10,0.34,0.96,Brazil,genre-label
-118,Aeropuerto,Camilo,reggaeton,warm,0.58,198,0.71,0.69,0.03,Puerto Rico,genre-label
-119,¿Qué Nos Pasó?,Anuel AA,reggaeton,intense,0.69,95,0.30,0.70,0.44,Puerto Rico,genre-label
-120,Una Vaina Loca,Fuego,reggaeton,celebratory,0.68,117,0.71,0.79,0.17,Puerto Rico,genre-label
-121,Fiel,Los Legendarios,reggaeton,celebratory,0.70,98,0.51,0.85,0.41,Puerto Rico,genre-label
-122,Quiero Decirte,Abraham Mateo,reggaeton,celebratory,0.77,118,0.92,0.75,0.04,Puerto Rico,genre-label
-123,Pegao,Camilo,reggaeton,warm,0.50,90,0.87,0.81,0.16,Puerto Rico,genre-label
-124,Virgen,Adolescent's Orquesta,salsa,celebratory,0.78,91,0.72,0.66,0.71,Latin America,genre-label
-125,Vivir Mi Vida,Marc Anthony,salsa,celebratory,0.88,105,0.89,0.66,0.34,Latin America,genre-label
-126,Yo No Sé Mañana,Luis Enrique,salsa,celebratory,0.83,95,0.73,0.65,0.65,Latin America,genre-label
-127,Flor Pálida,Marc Anthony,salsa,celebratory,0.80,94,0.74,0.57,0.66,Latin America,genre-label
-128,Brujeria,El Gran Combo De Puerto Rico,salsa,celebratory,0.62,93,0.96,0.80,0.56,Latin America,genre-label
-129,El Preso,Fruko Y Sus Tesos,salsa,celebratory,0.78,106,0.82,0.62,0.16,Latin America,genre-label
-130,Mas Que Nada,Sérgio Mendes,samba,celebratory,0.93,100,0.87,0.75,0.03,Brazil,genre-label
-131,Impossível Te Esquecer - Ao Vivo,Caju Pra Baixo,samba,celebratory,0.74,166,0.72,0.47,0.66,Brazil,genre-label
-132,Já é - Ao vivo,Jorge Aragão,samba,celebratory,0.79,99,0.91,0.49,0.76,Brazil,genre-label
-133,Contrato Vitalício - Ao Vivo,Akatu,samba,celebratory,0.75,150,0.69,0.64,0.58,Brazil,genre-label
-134,Meu Plano Falhou,Akatu,samba,celebratory,0.77,144,0.82,0.57,0.61,Brazil,genre-label
-135,Carolina,Seu Jorge,samba,intense,0.81,90,0.43,0.62,0.04,Brazil,genre-label
-136,Tiroteo - Remix,Marc Seguí,spanish,warm,0.52,110,0.60,0.75,0.28,Spain,genre-label
-137,A Mí,Rels B,spanish,warm,0.55,95,0.52,0.85,0.24,Spain,genre-label
-138,LAS 12,Ana Mena,spanish,celebratory,0.81,130,0.73,0.78,0.06,Spain,genre-label
-139,Devuélveme a mi chica,Hombres G,spanish,celebratory,0.84,173,0.50,0.60,0.00,Spain,genre-label
-140,Saturno,Pablo Alborán,spanish,melancholic,0.57,95,0.31,0.28,0.39,Spain,genre-label
-141,Porfa no te vayas,Beret,spanish,celebratory,0.85,172,0.79,0.59,0.37,Spain,genre-label
-142,Dancing Queen,ABBA,swedish,celebratory,0.87,101,0.75,0.54,0.36,Sweden,genre-label
-143,Gimme! Gimme! Gimme! (A Man After Midnight),ABBA,swedish,warm,0.49,120,0.54,0.75,0.02,Sweden,genre-label
-144,"It Must Have Been Love - From the Film ""Pretty Woman""",Roxette,swedish,celebratory,0.65,81,0.72,0.52,0.34,Sweden,genre-label
-145,2 Die 4,Tove Lo,swedish,celebratory,0.80,118,0.53,0.82,0.03,Sweden,genre-label
-146,Dancing In The Moonlight (feat. NEIMY),Jubël,swedish,intense,0.61,120,0.19,0.66,0.27,Sweden,genre-label
-147,Lovefool,The Cardigans,swedish,celebratory,0.64,112,0.89,0.70,0.03,Sweden,genre-label
-148,Por Una Cabeza,Carlos Gardel,tango,melancholic,0.26,62,0.29,0.39,0.94,Argentina,genre-label
-149,Scent of a Woman: Tango (Por Una Cabeza),Carlos Gardel,tango,melancholic,0.13,118,0.43,0.35,0.82,Argentina,genre-label
-150,Naranjo en Flor (En Directo),Roberto Goyeneche,tango,warm,0.37,118,0.75,0.58,0.63,Argentina,genre-label
-151,Cambalache,Rubén Juárez,tango,warm,0.26,115,0.79,0.58,0.55,Argentina,genre-label
-152,Balada para un Loco,Roberto Goyeneche,tango,melancholic,0.30,72,0.39,0.42,0.93,Argentina,genre-label
-153,La Cumparsita (with Leopoldo Federico y Su Orquesta),Julio Sosa,tango,warm,0.60,114,0.68,0.48,0.82,Argentina,genre-label
-154,Seni Dert Etmeler,Madrigal,turkish,celebratory,0.61,88,0.83,0.55,0.15,Turkey,genre-label
-155,M.,Anıl Emre Daldal,turkish,melancholic,0.37,100,0.44,0.57,0.57,Turkey,genre-label
-156,Arıyorum,EDIS,turkish,intense,0.73,97,0.38,0.44,0.08,Turkey,genre-label
-157,Martılar,EDIS,turkish,celebratory,0.61,123,0.90,0.84,0.06,Turkey,genre-label
-158,Nerdesin,Ezhel,turkish,celebratory,0.70,100,0.81,0.82,0.20,Turkey,genre-label
-159,La Câlin,Serhat Durmus,turkish,melancholic,0.44,148,0.07,0.60,0.09,Turkey,genre-label
+id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness,region,source,track_id
+1,Ruby,Ali Farka Touré,desert blues,melancholic,0.31,178,0.41,0.36,0.80,Mali,artist-allowlist,37IbDeC2CfODD3OGcAO8Vd
+2,Ai Du (with Ry Cooder),Ali Farka Touré,desert blues,melancholic,0.23,152,0.41,0.57,0.31,Mali,artist-allowlist,5ksSzUpY892Gga1BlDN9ey
+3,Monsieur le Maire de Niafunké,Ali Farka Touré,desert blues,melancholic,0.43,100,0.38,0.59,0.80,Mali,artist-allowlist,0504BmZ0EdVRO4faj6q0Yc
+4,Ilbiwa,Amadou & Mariam,mande,intense,0.70,96,0.32,0.60,0.49,Mali,artist-allowlist,29W0nW0risI95kRkHsoZai
+5,Poulo,Amadou & Mariam,mande,celebratory,0.88,119,0.70,0.66,0.12,Mali,artist-allowlist,7I08CGz9GMcbXcJ4G0IU04
+6,Beki Miri,Amadou & Mariam,mande,celebratory,0.68,174,0.70,0.60,0.20,Mali,artist-allowlist,2vruwVOlDYYftyt7v2QddO
+7,Ömrümün Sonbaharında,Barış Manço,anatolian rock,melancholic,0.25,72,0.35,0.53,0.83,Turkey,artist-allowlist,6wRBr1VICJv3quodxRYYhT
+8,Kol Düğmeleri,Barış Manço,anatolian rock,melancholic,0.19,78,0.17,0.26,0.76,Turkey,artist-allowlist,4DsjiElZzrVRJZv1nFoqV8
+9,İşte Hendek İşte Deve,Barış Manço,anatolian rock,celebratory,0.83,93,0.78,0.68,0.22,Turkey,artist-allowlist,0UY3deGYcjFNhWFfXvIaTM
+10,Drive - Edit,Black Coffee,south african house,intense,0.79,118,0.43,0.72,0.00,South Africa,artist-allowlist,3XsNRi2cypsksscysYbyaF
+11,Turn Me On,Black Coffee,south african house,celebratory,0.78,123,0.57,0.79,0.00,South Africa,artist-allowlist,7aUlBqAHppttybHHYrefZk
+12,Never Gonna Forget (with Diplo feat. Elderbrook),Black Coffee,south african house,intense,0.68,120,0.46,0.69,0.04,South Africa,artist-allowlist,0JqY1VDNn7p92rsvUGs6m1
+13,Three Little Birds,Bob Marley & The Wailers,reggae,warm,0.49,74,0.63,0.83,0.01,Jamaica,artist-allowlist,75FYqcxt1YEAtqDLrOeIJn
+14,Could You Be Loved,Bob Marley & The Wailers,reggae,celebratory,0.72,103,0.76,0.92,0.36,Jamaica,artist-allowlist,5O4erNlJ74PIF6kGol1ZrC
+15,Is This Love,Bob Marley & The Wailers,reggae,warm,0.56,122,0.76,0.78,0.11,Jamaica,artist-allowlist,6JRLFiX9NJSoRRKxowlBYr
+16,For My Hand (feat. Ed Sheeran),Burna Boy,afrobeats,warm,0.48,104,0.72,0.87,0.16,Nigeria,artist-allowlist,0HaRLPnr887lcQM2YQzkff
+17,It's Plenty,Burna Boy,afrobeats,warm,0.56,107,0.53,0.78,0.36,Nigeria,artist-allowlist,5hVjoL3sHepZROri63wBxP
+18,Gbona,Burna Boy,afrobeats,celebratory,0.81,94,0.94,0.80,0.56,Nigeria,artist-allowlist,7rpWDu9GPlLxbLorYKVys7
+19,African Teacher,Burning Spear,roots reggae,warm,0.52,78,0.96,0.78,0.20,Jamaica,artist-allowlist,4QcYPg7jfKSnhiroHd51hC
+20,Greetings,Burning Spear,roots reggae,warm,0.33,76,0.69,0.80,0.07,Jamaica,artist-allowlist,0hCs3bYhNhyVVr4Fy60awO
+21,Sodade,Cesária Evora,morna,melancholic,0.43,83,0.43,0.57,0.82,Cape Verde,artist-allowlist,7xzMrUmlooPa1Fmp88hlYc
+22,Tiempo Y Silencio,Cesária Evora,morna,melancholic,0.37,120,0.41,0.71,0.85,Cape Verde,artist-allowlist,2Bc7hzJcTjSQ7Ns4n8qobW
+23,Pa Manyen Fanm Nan,Cesária Evora,morna,warm,0.53,180,0.76,0.77,0.34,Cape Verde,artist-allowlist,0fjKrQ4h2n3tJOPne0BqzW
+24,Here Comes Trouble,Chronixx,reggae revival,celebratory,0.79,83,0.79,0.76,0.16,Jamaica,artist-allowlist,5Wwr2S7QZTR5PVJn6jhgdk
+25,Skankin' Sweet,Chronixx,reggae revival,celebratory,0.66,78,0.71,0.74,0.07,Jamaica,artist-allowlist,5SQaQWvBDEAeug4EPyYEGE
+26,Water No Get Enemy,Fela Kuti,afrobeat,celebratory,0.93,91,0.88,0.64,0.11,Nigeria,artist-allowlist,2oWex6rYoQ7Bl2D9zG8d3F
+27,Zombie,Fela Kuti,afrobeat,celebratory,0.94,131,0.57,0.67,0.39,Nigeria,artist-allowlist,3RZoPvPHZsPTTc94DfWSCL
+28,Expensive Shit,Fela Kuti,afrobeat,celebratory,0.88,124,0.68,0.61,0.22,Nigeria,artist-allowlist,2yBjFF19OmukrC7deP7LfZ
+29,Pes to gia mena (feat. Eleni Vitali),George Dalaras,laiko,intense,0.67,108,0.46,0.52,0.32,Greece,artist-allowlist,7tdRtYANnZ4hE0hNZoOWsd
+30,El Cascabel (Son Jarocho),George Dalaras,laiko,celebratory,0.79,90,0.74,0.56,0.71,Greece,artist-allowlist,5FkxQ9CRuRn7tBIjwcqy5c
+31,Mia Stigmi Gia Pada - Ap' To Tango Ton Hristougennon,George Dalaras,laiko,melancholic,0.38,113,0.33,0.49,0.34,Greece,artist-allowlist,5kvoedT57zW9dRzdPNBt9W
+32,Night Nurse,Gregory Isaacs,lovers rock,warm,0.37,74,0.90,0.82,0.04,Jamaica,artist-allowlist,4DQttwipnILl88cru3BRZx
+33,Cool Down The Pace,Gregory Isaacs,lovers rock,warm,0.30,76,0.93,0.87,0.12,Jamaica,artist-allowlist,4llIZen1Cn4mi3DJm2Lqlz
+34,Red Rose For Gregory,Gregory Isaacs,lovers rock,warm,0.54,82,0.82,0.78,0.09,Jamaica,artist-allowlist,0Sr6huN8HcTtrKmiOkAogw
+35,Grazing In The Grass,Hugh Masekela,south african jazz,celebratory,0.70,107,0.91,0.67,0.52,South Africa,artist-allowlist,77R3mOaInbXGRjTjWlwjug
+36,Been Such A Long Time Gone,Hugh Masekela,south african jazz,celebratory,0.66,107,0.70,0.54,0.24,South Africa,artist-allowlist,1TIr3Py2sKuNPXSe4nhVQE
+37,Marketplace,Hugh Masekela,south african jazz,warm,0.25,92,0.56,0.70,0.68,South Africa,artist-allowlist,3HXwqoy1n9IEJVEnL6CC1E
+38,Footprints,Jimmy Cliff,reggae,warm,0.37,144,0.76,0.67,0.68,Jamaica,artist-allowlist,6KeunoKe447ohIj7u32Y7D
+39,"Wonderful World, Beautiful People",Jimmy Cliff,reggae,warm,0.55,107,0.83,0.73,0.04,Jamaica,artist-allowlist,7E6EXZORUZDseFE1h9jZv0
+40,Jerusalema (feat. Nomcebo Zikode),Master KG,south african house,warm,0.48,124,0.83,0.88,0.02,South Africa,artist-allowlist,2MlOUXmcofMackX3bxfSwi
+41,Jerusalema (Edit),Master KG,south african house,warm,0.55,124,0.87,0.90,0.02,South Africa,artist-allowlist,5MPFAycA8uL9MfQHYXPQbj
+42,Zorba's Dance,Mikis Theodorakis,greek folk,melancholic,0.39,82,0.42,0.56,0.29,Greece,artist-allowlist,0TVfjLNE6cn8QugBuxVWF1
+43,Tosa Chronia,Mikis Theodorakis,greek folk,melancholic,0.38,88,0.16,0.41,0.86,Greece,artist-allowlist,5ZrO7a3eyM5JWnkV4dGzas
+44,Eimaste Dyo,Mikis Theodorakis,greek folk,celebratory,0.61,119,0.99,0.68,0.77,Greece,artist-allowlist,4fo5uMhEhxZXntgKgqE0WT
+45,Tezeta (Nostalgia),Mulatu Astatke,ethio-jazz,warm,0.36,81,0.50,0.55,0.95,Ethiopia,artist-allowlist,414J8tKHbtF16XOiHGBEso
+46,Yègellé Tezeta,Mulatu Astatke,ethio-jazz,warm,0.23,126,0.78,0.84,0.74,Ethiopia,artist-allowlist,0fxjsll9jmmRgMFbwdp4Xg
+47,Tezeta,Mulatu Astatke,ethio-jazz,warm,0.25,81,0.54,0.55,0.96,Ethiopia,artist-allowlist,7JPNvoMjoIXkTDAMx9Aajj
+48,Haydar Haydar,Neşet Ertaş,turkish folk,melancholic,0.34,85,0.22,0.41,0.87,Turkey,artist-allowlist,3UxPbLkQniiproORCEFgzH
+49,Entre Dos Aguas - Remastered 2014,Paco de Lucía,flamenco,celebratory,0.92,103,0.92,0.43,0.92,Spain,artist-allowlist,4WO5q4gmBiPJbv2xqVDADE
+50,Johnny B. Goode - 2002 Remaster,Peter Tosh,reggae,celebratory,0.85,145,0.96,0.75,0.03,Jamaica,artist-allowlist,5uPYEStMW3KsXnnLV7iCTw
+51,Legalize It,Peter Tosh,reggae,warm,0.59,145,0.65,0.71,0.07,Jamaica,artist-allowlist,73lYI49LhfsscO33ohrGN0
+52,Brand New Second Hand,Peter Tosh,reggae,celebratory,0.63,75,0.81,0.72,0.13,Jamaica,artist-allowlist,27FlIKuN4tLS9ddAbrJnbR
+53,Calm Down (with Selena Gomez),Rema,afrobeats,celebratory,0.81,107,0.80,0.80,0.38,Nigeria,artist-allowlist,0WtM2NBVQNNJLh6scP13H8
+54,Da,Salif Keita,mande,celebratory,0.80,110,0.62,0.73,0.27,Mali,artist-allowlist,1oAM55oTaAwYWxH2jNISgy
+55,Baba,Salif Keita,mande,celebratory,0.71,154,0.69,0.69,0.32,Mali,artist-allowlist,2aDwNKjfh7DBOXV1XgpcIz
+56,Ekolo D'Amour,Salif Keita,mande,celebratory,0.80,111,0.84,0.77,0.64,Mali,artist-allowlist,05ySvFMW8LvmiLgbZYGNGL
+57,Yuh Yuh,Selda Bağcan,anatolian rock,celebratory,0.76,100,0.65,0.81,0.30,Turkey,artist-allowlist,2nY9sZgEOdwM1tzGKLDhzp
+58,Acem Kızı,Selda Bağcan,anatolian rock,melancholic,0.31,130,0.26,0.51,0.85,Turkey,artist-allowlist,4ZXnijgLByTyPopgdPhizz
+59,Telli Telli,Selda Bağcan,anatolian rock,warm,0.38,100,0.71,0.69,0.49,Turkey,artist-allowlist,6jOfKxWSY03vmmSjNs6CM9
+60,Karşıyım,Sezen Aksu,turkish pop,celebratory,0.87,150,0.82,0.70,0.31,Turkey,artist-allowlist,2lypX2C1BRKDFefGOQ0eXM
+61,Yanmışım Sönmüşüm Ben,Sezen Aksu,turkish pop,celebratory,0.82,125,0.82,0.72,0.06,Turkey,artist-allowlist,50K50CRUzz8i6CBy5pWRE7
+62,Yavrucanım - İyilikle Büyüsün,Sezen Aksu,turkish pop,melancholic,0.23,173,0.44,0.43,0.93,Turkey,artist-allowlist,7tOL8oiMVKiYSzW7gN03Mk
+63,Bam Bam,Sister Nancy,dancehall,celebratory,0.60,166,0.71,0.72,0.82,Jamaica,artist-allowlist,7ixiCZEHWHc8FxaQXQh2P4
+64,Wolf Totem,The HU,mongolian folk metal,intense,0.72,172,0.49,0.56,0.09,Mongolia,artist-allowlist,5hISmTJXBXdOes4htbUhGk
+65,Yuve Yuve Yu,The HU,mongolian folk metal,intense,0.86,132,0.32,0.62,0.02,Mongolia,artist-allowlist,7dH9Qnbb7pwDahy1Vb9ZQa
+66,Toumast Tincha,Tinariwen,tuareg rock,intense,0.66,87,0.19,0.30,0.48,Mali,artist-allowlist,3911Bzzv8FHgbitJzXFjxh
+67,Nànnuflày,Tinariwen,tuareg rock,melancholic,0.48,118,0.30,0.60,0.85,Mali,artist-allowlist,1QG3f3TYy9mci5ogEu2PyS
+68,Sastanàqqàm,Tinariwen,tuareg rock,intense,0.66,99,0.43,0.73,0.03,Mali,artist-allowlist,5FmPigqSIfk8zr2kx0H4vz
+69,Jaiye Foreign,Tiwa Savage,afrobeats,celebratory,0.82,109,0.86,0.82,0.02,Nigeria,artist-allowlist,3iRKwxW8ZDjmL9nKk3nisz
+70,Somebody’s Son (Ft Brandy),Tiwa Savage,afrobeats,celebratory,0.81,107,0.51,0.70,0.14,Nigeria,artist-allowlist,3Z9B9GQ2fFx4IRCG8bbWys
+71,Ma Lo,Tiwa Savage,afrobeats,celebratory,0.72,105,0.65,0.79,0.42,Nigeria,artist-allowlist,6U9jxxdQ6TNzjshIpwWMTf
+72,Beautiful Woman,Toots & The Maytals,ska,warm,0.57,178,0.94,0.57,0.01,Jamaica,artist-allowlist,79HEQYKsJM87zm0d4Fnaqf
+73,Essence (feat. Tems),Wizkid,afrobeats,celebratory,0.71,104,0.60,0.85,0.03,Nigeria,artist-allowlist,5FG7Tl93LdH117jEKYl3Cm
+74,Bad To Me,Wizkid,afrobeats,celebratory,0.82,110,0.91,0.86,0.07,Nigeria,artist-allowlist,2pUlBBWq8R10ylbBvZJV9j
+75,Essence (feat. Justin Bieber & Tems),Wizkid,afrobeats,celebratory,0.69,104,0.58,0.83,0.02,Nigeria,artist-allowlist,1mSdbey7RstGLY2udgXv74
+76,風雨不改 (電影《阿媽有咗第二個》主題曲),Keung To,cantopop,melancholic,0.20,63,0.29,0.32,0.94,Hong Kong,genre-label,172oAbLGpgeCsukno7oBRe
+77,"Dear My Friend,",Keung To,cantopop,melancholic,0.45,95,0.27,0.65,0.72,Hong Kong,genre-label,11IqNbLOD4s4nVYSuEttFR
+78,孤勇者 - 《英雄聯盟:雙城之戰》動畫劇集中文主題曲,Eason Chan,cantopop,melancholic,0.54,130,0.29,0.61,0.63,Hong Kong,genre-label,6akVETVeqqPVvuBS5e0EB1
+79,留一天與你喘息,陳卓賢 Ian,cantopop,melancholic,0.48,172,0.26,0.41,0.57,Hong Kong,genre-label,6flgMTTqhbJSNryAPCYcvA
+80,Distance,陳卓賢 Ian,cantopop,celebratory,0.75,170,0.52,0.37,0.17,Hong Kong,genre-label,2rbbJ2xZFJa2DriR5h0TBS
+81,老派約會之必要,MC 張天賦,cantopop,warm,0.56,107,0.63,0.68,0.50,Hong Kong,genre-label,2lMVTk3I232dE7jnkufOSt
+82,Give It To Me - Full Vocal Mix,Matt Sassari,french,celebratory,0.87,126,0.73,0.87,0.00,France,genre-label,5ZduaRci3iNUiDfJbBfAaf
+83,Balader,Soolking,french,celebratory,0.80,130,0.79,0.60,0.31,France,genre-label,6PrB4KpvuoYWtwjPC5a44S
+84,TOUT VA BIEN (feat. Ninho & Naps),Alonzo,french,celebratory,0.72,100,0.63,0.66,0.30,France,genre-label,6OZwia8loN0aPS0vTvsBjR
+85,Tourner Dans Le Vide,Indila,french,intense,0.70,120,0.38,0.59,0.10,France,genre-label,1MqzIgGsHP4cNjPboevsfq
+86,PETETE,Gambi,french,celebratory,0.67,156,0.63,0.75,0.17,France,genre-label,0z3bi63SNZ5ylyHOzb81Uq
+87,Midnight City,M83,french,intense,0.73,105,0.27,0.51,0.02,France,genre-label,6GyFP1nfCDB8lbD2bG0Hq9
+88,"Kesariya (From ""Brahmastra"")",Pritam,indian,melancholic,0.57,94,0.44,0.58,0.57,India,genre-label,6VBhH7CyP56BXjp8VsDFPZ
+89,"Deva Deva (From ""Brahmastra"")",Pritam,indian,intense,0.72,112,0.44,0.53,0.63,India,genre-label,0IGXY47K2ha3AHfX57wY1O
+90,"Ranjha (From ""Shershaah"")",Jasleen Royal,indian,melancholic,0.57,83,0.24,0.60,0.48,India,genre-label,72zHuDxFQTjbL51qJQSA7j
+91,Baarishein,Anuv Jain,indian,melancholic,0.12,94,0.19,0.47,0.93,India,genre-label,5iCY0TXNImK4hyKfcplQsg
+92,"Rangisari (From ""Jugjugg Jeeyo"")",Kanishk Seth,indian,intense,0.76,140,0.32,0.52,0.27,India,genre-label,0DXfJ2iKRDEG7rPgssWFea
+93,"Doobey (From ""Gehraiyaan"")",OAFF,indian,intense,0.67,119,0.36,0.75,0.34,India,genre-label,7MBqVOzb8C3f0FXr2LBLiq
+94,Shinunoga E-Wa,Fujii Kaze,j-pop,celebratory,0.76,158,0.52,0.60,0.17,Japan,genre-label,0o9zmvc5f3EFApU52PPIyW
+95,Overdose,なとり,j-pop,warm,0.60,118,0.83,0.73,0.03,Japan,genre-label,2Dzzhb1oV5ckgOjWZLraIB
+96,新時代 - ウタ from ONE PIECE FILM RED,Ado,j-pop,intense,0.99,175,0.42,0.49,0.05,Japan,genre-label,2l2yRJWgMiJkfPbRNiuC25
+97,祝福,YOASOBI,j-pop,celebratory,0.96,170,0.54,0.55,0.02,Japan,genre-label,7ajpbW6tBpqUI9foCtwlLw
+98,夜に駆ける,YOASOBI,j-pop,celebratory,0.87,130,0.79,0.67,0.00,Japan,genre-label,3dPtXHP0oXQ4HCWHsOA9js
+99,Sway,Michael Bublé,j-pop,celebratory,0.64,126,0.74,0.71,0.75,Japan,genre-label,2ajUl8lBLAXOXNpG4NEPMz
+100,After LIKE,IVE,k-pop,celebratory,0.92,125,0.80,0.68,0.10,South Korea,genre-label,2gYj9lubBorOPIVWsTXugG
+101,Shut Down,BLACKPINK,k-pop,celebratory,0.66,110,0.65,0.81,0.00,South Korea,genre-label,6tCd8bPvYnceDG7W9M1RMk
+102,Talk that Talk,TWICE,k-pop,celebratory,0.91,120,0.78,0.77,0.14,South Korea,genre-label,0RDqNCRBGrSegk16Avfzuq
+103,Dynamite,BTS,k-pop,celebratory,0.77,114,0.74,0.75,0.01,South Korea,genre-label,5QDLhrAOJJdNAmCTJ8xMyW
+104,Pink Venom,BLACKPINK,k-pop,celebratory,0.72,90,0.69,0.79,0.01,South Korea,genre-label,7EyhPjrJzjx0fk2i7vUJCS
+105,Yet To Come,BTS,k-pop,celebratory,0.89,172,0.68,0.56,0.04,South Korea,genre-label,10SRMwb9EuVS1K9rYsBfHQ
+106,"如果可以 - 電影""月老""主題曲",WeiBird,mandopop,melancholic,0.54,75,0.37,0.54,0.24,Taiwan,genre-label,72OVnXDzugvrCU25lMi9au
+107,"最後一堂課 - 《媽,別鬧了!》影集片尾曲",Eric Chou,mandopop,melancholic,0.54,74,0.35,0.55,0.77,Taiwan,genre-label,2OR5FUKy3GQ7I9DCbRnfsW
+108,閣愛妳一擺,EggPlantEgg,mandopop,celebratory,0.78,134,0.56,0.55,0.05,Taiwan,genre-label,07plVccQ0N6FTTTonk3c2M
+109,好不容易 (《華燈初上》片尾曲),告五人,mandopop,melancholic,0.54,174,0.17,0.38,0.31,Taiwan,genre-label,6jNy9WM3zyvG9E5bdVALl8
+110,"你,好不好? - TVBS連續劇【遺憾拼圖】片尾曲",Eric Chou,mandopop,warm,0.48,160,0.54,0.44,0.64,Taiwan,genre-label,2gug6MRv4xQFYi9LA3PJCS
+111,刻在我心底的名字 (Your Name Engraved Herein) - 電影<刻在你心底的名字>主題曲,Crowd Lu,mandopop,melancholic,0.20,136,0.27,0.42,0.87,Taiwan,genre-label,3OC84eKMxRJ4x0Hcwl9i4i
+112,Tuyo (Narcos Theme) [Extended Version] - A Netflix Original Series Soundtrack,Rodrigo Amarante,mpb,melancholic,0.50,112,0.46,0.77,0.49,Brazil,genre-label,6g2BiiVQqY5v1S4HIrM54F
+113,Tuyo (Narcos Theme) - A Netflix Original Series Soundtrack,Rodrigo Amarante,mpb,warm,0.42,112,0.55,0.72,0.47,Brazil,genre-label,6Dc2tCivms1s2X9myWe4ni
+114,Sangrando,Gonzaguinha,mpb,melancholic,0.41,91,0.22,0.48,0.60,Brazil,genre-label,77Y6wpQYkl4JnxotLfBNqU
+115,Canteiros,Fagner,mpb,melancholic,0.27,140,0.42,0.44,0.86,Brazil,genre-label,28IXLE3uhY2qgRO9cGkiXr
+116,Deslizes,Fagner,mpb,melancholic,0.39,136,0.49,0.54,0.24,Brazil,genre-label,2ReXjoXXQ6diAn9RocOE1F
+117,O Vento - Acústico,Jota Quest,mpb,melancholic,0.23,145,0.10,0.34,0.96,Brazil,genre-label,00fzPML4lrNag28OPzsB93
+118,Aeropuerto,Camilo,reggaeton,warm,0.58,198,0.71,0.69,0.03,Puerto Rico,genre-label,4v7riPZWyAclrOfUSwD0zp
+119,¿Qué Nos Pasó?,Anuel AA,reggaeton,intense,0.69,95,0.30,0.70,0.44,Puerto Rico,genre-label,7k3qWn8D43a5ISa3x8lJux
+120,Una Vaina Loca,Fuego,reggaeton,celebratory,0.68,117,0.71,0.79,0.17,Puerto Rico,genre-label,6YYmoV9YbBefsspGmqFHbs
+121,Fiel,Los Legendarios,reggaeton,celebratory,0.70,98,0.51,0.85,0.41,Puerto Rico,genre-label,7Bk0uXKk1uPT0XuQbpFzvs
+122,Quiero Decirte,Abraham Mateo,reggaeton,celebratory,0.77,118,0.92,0.75,0.04,Puerto Rico,genre-label,7dT6ccDqmMHvz5C0d8iUND
+123,Pegao,Camilo,reggaeton,warm,0.50,90,0.87,0.81,0.16,Puerto Rico,genre-label,7Dk8r4VR5NoveUvTiCKEXC
+124,Virgen,Adolescent's Orquesta,salsa,celebratory,0.78,91,0.72,0.66,0.71,Latin America,genre-label,6srBp90EwADKAF7PorGiUC
+125,Vivir Mi Vida,Marc Anthony,salsa,celebratory,0.88,105,0.89,0.66,0.34,Latin America,genre-label,3QHMxEOAGD51PDlbFPHLyJ
+126,Yo No Sé Mañana,Luis Enrique,salsa,celebratory,0.83,95,0.73,0.65,0.65,Latin America,genre-label,7nDIflSHQXzaa8zupxwv3U
+127,Flor Pálida,Marc Anthony,salsa,celebratory,0.80,94,0.74,0.57,0.66,Latin America,genre-label,47TyfLrGhYHHyyQWk64d0M
+128,Brujeria,El Gran Combo De Puerto Rico,salsa,celebratory,0.62,93,0.96,0.80,0.56,Latin America,genre-label,0k1hbeZodoEw34FAdbh8xM
+129,El Preso,Fruko Y Sus Tesos,salsa,celebratory,0.78,106,0.82,0.62,0.16,Latin America,genre-label,1Fp4njyRHJYyMTKP899c0q
+130,Mas Que Nada,Sérgio Mendes,samba,celebratory,0.93,100,0.87,0.75,0.03,Brazil,genre-label,6U7GUjtamt2P0LcFod1dBT
+131,Impossível Te Esquecer - Ao Vivo,Caju Pra Baixo,samba,celebratory,0.74,166,0.72,0.47,0.66,Brazil,genre-label,5loUkQtE8QZhYALMNcX9TF
+132,Já é - Ao vivo,Jorge Aragão,samba,celebratory,0.79,99,0.91,0.49,0.76,Brazil,genre-label,5208LKuihL0farASiFLxEl
+133,Contrato Vitalício - Ao Vivo,Akatu,samba,celebratory,0.75,150,0.69,0.64,0.58,Brazil,genre-label,6RzPHkfmWnAsUc7uycXpBg
+134,Meu Plano Falhou,Akatu,samba,celebratory,0.77,144,0.82,0.57,0.61,Brazil,genre-label,5mS3f2vKNvRLkgeO2LGkZo
+135,Carolina,Seu Jorge,samba,intense,0.81,90,0.43,0.62,0.04,Brazil,genre-label,1i5gtw8FVdPh3EXTSVGcZI
+136,Tiroteo - Remix,Marc Seguí,spanish,warm,0.52,110,0.60,0.75,0.28,Spain,genre-label,4OwhwvKESFtuu06dTgct7i
+137,A Mí,Rels B,spanish,warm,0.55,95,0.52,0.85,0.24,Spain,genre-label,7MmrcXVA7A5zZ2CbDuGHNa
+138,LAS 12,Ana Mena,spanish,celebratory,0.81,130,0.73,0.78,0.06,Spain,genre-label,0EpdLuptraYGFZ6J7HNSLc
+139,Devuélveme a mi chica,Hombres G,spanish,celebratory,0.84,173,0.50,0.60,0.00,Spain,genre-label,1Wrzhfa5bNlqvsnCztz190
+140,Saturno,Pablo Alborán,spanish,melancholic,0.57,95,0.31,0.28,0.39,Spain,genre-label,2f0Ft2XdvNSMSY5TUlZgEz
+141,Porfa no te vayas,Beret,spanish,celebratory,0.85,172,0.79,0.59,0.37,Spain,genre-label,4J2HLNTxiVxxs6kWgTIN43
+142,Dancing Queen,ABBA,swedish,celebratory,0.87,101,0.75,0.54,0.36,Sweden,genre-label,0GjEhVFGZW8afUYGChu3Rr
+143,Gimme! Gimme! Gimme! (A Man After Midnight),ABBA,swedish,warm,0.49,120,0.54,0.75,0.02,Sweden,genre-label,3vkQ5DAB1qQMYO4Mr9zJN6
+144,"It Must Have Been Love - From the Film ""Pretty Woman""",Roxette,swedish,celebratory,0.65,81,0.72,0.52,0.34,Sweden,genre-label,6kvoHl80mfCVTv7XnZkjQn
+145,2 Die 4,Tove Lo,swedish,celebratory,0.80,118,0.53,0.82,0.03,Sweden,genre-label,3QK2bbLCTGoFXFt64e5TBY
+146,Dancing In The Moonlight (feat. NEIMY),Jubël,swedish,intense,0.61,120,0.19,0.66,0.27,Sweden,genre-label,4GSDkZt7GcmzBWmsMcpaVO
+147,Lovefool,The Cardigans,swedish,celebratory,0.64,112,0.89,0.70,0.03,Sweden,genre-label,7aQjPecQdIuNd1sz3KCDhD
+148,Por Una Cabeza,Carlos Gardel,tango,melancholic,0.26,62,0.29,0.39,0.94,Argentina,genre-label,1jSiCrX3a7ie9Okck6lL1R
+149,Scent of a Woman: Tango (Por Una Cabeza),Carlos Gardel,tango,melancholic,0.13,118,0.43,0.35,0.82,Argentina,genre-label,3mGkPsZbHEBf8ZT1ExZnww
+150,Naranjo en Flor (En Directo),Roberto Goyeneche,tango,warm,0.37,118,0.75,0.58,0.63,Argentina,genre-label,0s3z0b2wJQDyElh873Fl3P
+151,Cambalache,Rubén Juárez,tango,warm,0.26,115,0.79,0.58,0.55,Argentina,genre-label,0o3r27hQXI3cqZbvfpljRh
+152,Balada para un Loco,Roberto Goyeneche,tango,melancholic,0.30,72,0.39,0.42,0.93,Argentina,genre-label,68RO16eZBKH9wfX4zs93lz
+153,La Cumparsita (with Leopoldo Federico y Su Orquesta),Julio Sosa,tango,warm,0.60,114,0.68,0.48,0.82,Argentina,genre-label,5Rd588cbZ8HUooyMEhcJVC
+154,Seni Dert Etmeler,Madrigal,turkish,celebratory,0.61,88,0.83,0.55,0.15,Turkey,genre-label,10n66m41IGjA2ZulKPK7Ew
+155,M.,Anıl Emre Daldal,turkish,melancholic,0.37,100,0.44,0.57,0.57,Turkey,genre-label,6wfb4nI2Vih263JqC8WSoW
+156,Arıyorum,EDIS,turkish,intense,0.73,97,0.38,0.44,0.08,Turkey,genre-label,6g6MHm9u0h2Em9Xuk89eqR
+157,Martılar,EDIS,turkish,celebratory,0.61,123,0.90,0.84,0.06,Turkey,genre-label,1xEpgyKx4ZHtefFAh0SmU5
+158,Nerdesin,Ezhel,turkish,celebratory,0.70,100,0.81,0.82,0.20,Turkey,genre-label,2SwQShWjZsxoGviEyaEMOX
+159,La Câlin,Serhat Durmus,turkish,melancholic,0.44,148,0.07,0.60,0.09,Turkey,genre-label,2nLeVfLE8t3hzHhXkZ6Ez2
