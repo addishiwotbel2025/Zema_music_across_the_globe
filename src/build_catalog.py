@@ -5,7 +5,7 @@ Run from the project root:
 
     python -m src.build_catalog
 
-Reads  data/raw/dataset.csv   (19MB, gitignored, downloaded separately)
+Reads  dxata/raw/dataset.csv   (19MB, gitignored, downloaded separately)
 Writes data/songs.csv         (the catalog the recommender actually uses)
 
 Why this is a script and not a hand-written CSV: the selection and cleaning
@@ -28,14 +28,19 @@ import csv
 from pathlib import Path
 from typing import Dict, List, Optional
 
+# creates path to a specific file
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# creates path to dataset.csv (old song)
 RAW_CSV = PROJECT_ROOT / "data" / "raw" / "dataset.csv"
+
+# creates path to the new song dataset that is about to be built
 OUT_CSV = PROJECT_ROOT / "data" / "songs.csv"
 
 MAX_PER_ARTIST = 3
 MAX_PER_GENRE = 6
 
-# --- Path 1: genre labels verified by inspection ---------------------------
+# --- Path 1: genre labels verified by inspection 
 # Each was checked by reading its top tracks. Labels that failed that check
 # (afrobeat, reggae, world-music, ska, dub, brazil, pagode, iranian, latin,
 # latino) are deliberately absent.
@@ -56,10 +61,19 @@ VERIFIED_GENRES: Dict[str, str] = {
     "cantopop": "Hong Kong",
 }
 
-# --- Path 2: artists selected by name, label ignored -----------------------
+# Path 2: artists selected by name, label ignored
 # (genre, region) assigned by hand. This is a human judgement call and is
 # recorded as such in the model card: it substitutes one curator's bias for
 # the platform's, and it does not scale beyond a list a person can check.
+
+# example: 
+'''
+Artist: Bad Bunny
+Dataset genre: reggae
+That is a misclassification in the dataset. 
+If your recommender simply trusted
+we are manually assigning some genres to avoid bias from the dataset
+'''
 ARTIST_ALLOWLIST: Dict[str, tuple] = {
     # West Africa
     "Fela Kuti": ("afrobeat", "Nigeria"),
@@ -105,7 +119,8 @@ ARTIST_ALLOWLIST: Dict[str, tuple] = {
     "The HU": ("mongolian folk metal", "Mongolia"),
 }
 
-
+# The raw dataset doesn't have a mood field, so this 
+# function creates one from the audio features you already have.
 def derive_mood(valence: float, energy: float) -> str:
     """
     Derive a mood from valence and energy.
@@ -119,7 +134,7 @@ def derive_mood(valence: float, energy: float) -> str:
         return "celebratory" if energy >= 0.6 else "warm"
     return "intense" if energy >= 0.6 else "melancholic"
 
-
+# data cleaning
 def clean_row(row: Dict) -> Optional[Dict]:
     """
     Return the row's numeric fields parsed, or None if the row is unusable.
@@ -145,12 +160,13 @@ def clean_row(row: Dict) -> Optional[Dict]:
         return None
     return values
 
-
+# distinguish between the primary artist and artists who are featured/credited.
 def primary_artist(artists_field: str) -> str:
     """The first name in a semicolon-separated artist credit."""
     return artists_field.split(";")[0].strip()
 
-
+# makes sure that the mentioned artist is the primary, not
+# the featured artist
 def match_allowlist(artists_field: str) -> Optional[str]:
     """
     Return the allowlisted artist if they are the *primary* credit.
@@ -170,7 +186,7 @@ def match_allowlist(artists_field: str) -> Optional[str]:
     primary = primary_artist(artists_field)
     return primary if primary in ARTIST_ALLOWLIST else None
 
-
+# collects plausible song lists, by artist and genre
 def load_candidates() -> tuple:
     """Single pass over the raw file, collecting both selection paths."""
     by_genre: Dict[str, List[Dict]] = {g: [] for g in VERIFIED_GENRES}
@@ -178,10 +194,9 @@ def load_candidates() -> tuple:
     seen_track_ids = set()
     seen_songs = set()
 
+    # loop to read the file
     with open(RAW_CSV, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            # 21.3% of rows are duplicates by track_id, because tracks appear
-            # under several genre labels. Keep the first sighting only.
             track_id = row.get("track_id", "")
             if track_id in seen_track_ids:
                 continue
@@ -197,7 +212,7 @@ def load_candidates() -> tuple:
                         primary_artist(row["artists"]).lower())
             if song_key in seen_songs:
                 continue
-
+            # catch duplicate songs either by id or by song (if its modified)
             seen_track_ids.add(track_id)
             seen_songs.add(song_key)
 
@@ -207,8 +222,7 @@ def load_candidates() -> tuple:
                 **values,
             }
 
-            # Artist selection wins over genre selection: it carries a
-            # hand-checked label, which the genre path does not.
+            # Artist selection wins over genre selection - cleaned manually (bias removed)
             allowlisted = match_allowlist(row["artists"])
             if allowlisted is not None:
                 genre, region = ARTIST_ALLOWLIST[allowlisted]
@@ -227,13 +241,14 @@ def load_candidates() -> tuple:
 
     return by_genre, by_artist
 
-
+# final song selection
 def select(by_genre: Dict, by_artist: Dict) -> List[Dict]:
     """Take the most popular tracks from each bucket, subject to the caps."""
     chosen: List[Dict] = []
-
+    # use their popularity value as the thing to sort by.                       
     for artist, rows in sorted(by_artist.items()):
         rows.sort(key=lambda r: r["popularity"], reverse=True)
+        # take a limited amount of songs per artist
         chosen.extend(rows[:MAX_PER_ARTIST])
 
     for label, rows in sorted(by_genre.items()):
@@ -253,7 +268,7 @@ def select(by_genre: Dict, by_artist: Dict) -> List[Dict]:
 
     return chosen
 
-
+# writes chosen songs to a csv file
 def write_catalog(rows: List[Dict]) -> None:
     """Write the catalog, assigning stable ids in output order."""
     columns = ["id", "title", "artist", "genre", "mood", "energy", "tempo_bpm",

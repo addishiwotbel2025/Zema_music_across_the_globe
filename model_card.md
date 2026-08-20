@@ -277,6 +277,78 @@ disclose. Disclosure is the part that is not optional.
   without warning, and an empty profile returned the first five rows of the file dressed up as
   a ranking.
 
+#### Retrieval
+
+Retrieval is the only part of the system that can answer a request the song columns do not
+encode. It is also the only part that can be confidently wrong, so its limits are worth stating
+precisely.
+
+**1. What is actually being compared**
+
+Only two things: the user's free-text query, and the text of each of the 126 corpus documents
+(a Wikipedia article title plus its intro section). The song catalog is **not in the index at
+all** — no song title, artist name, or feature column is ever part of the similarity
+calculation.
+
+Songs enter afterwards, through a link recorded when the corpus was built: each document carries
+the artist or genre name it describes, and songs are attached to it by exact string equality on
+that name. So there are two different matching mechanisms chained together — a fuzzy one between
+query and article, and an exact one between article and song.
+
+**2. Cosine similarity measures word overlap, not relevance**
+
+The score answers one question: *how much rare, distinctive vocabulary does this article share
+with the query?* It is not a measure of authority, correctness, or musical knowledge, and it has
+no concept of what a genre is. This produces failures in both directions:
+
+| Failure | Example |
+|---|---|
+| **Right content, wrong words** → scores 0 | The query "protest music" returns nothing. Fela Kuti's article is by far the most relevant thing in the corpus — he was arrested repeatedly and *Zombie* is about military brutality — but the article says "political activist" and never uses the word "protest". |
+| **Wrong content, right words** → scores high | While the `salsa` entry was still Wikipedia's disambiguation page about sauces, any query containing "salsa" matched it strongly. The word is in the text repeatedly. High score, no musical information. |
+
+**3. Wikipedia's vocabulary is the entire query vocabulary**
+
+A word that appears in none of the 126 articles cannot match anything, so the system can only be
+asked about things those intro paragraphs happen to mention. Measured across the corpus:
+`politic` appears in 3 documents, `celebrat` in 4, `wedding` in 1, and `protest` in none. The
+articles are biographical — who an artist is, where they are from, when they were active — and
+rarely describe what a song is about or when it would be played. Retrieval is therefore strong
+for "who / where / which tradition" queries and weak for "what is it about / what occasion"
+queries.
+
+**4. A wrong article is trusted exactly as much as a right one**
+
+The link from article to songs is a lookup, not an inference. Nothing in the system evaluates
+whether the winning article is a sensible answer. When the salsa entry was the page about
+condiments, it was still linked to the salsa genre, so a query about sauces would have
+confidently recommended Marc Anthony with a Wikipedia citation attached. The guards added
+against this — rejecting disambiguation pages, name-index pages, and generic articles such as
+"Music genre" — were each added *after* a wrong document reached the output, which suggests
+others are likely still present.
+
+**5. The retrieval weight is arbitrary**
+
+A cosine similarity of 0.305 is computed rigorously; converting it into 3.05 points of score is
+not. `RETRIEVAL_WEIGHT = 10.0` was chosen by hand so that a strong cultural match would weigh
+roughly what a genre match weighs. There is no derivation behind it, and halving it changes
+which songs win.
+
+**6. The boost cannot distinguish between songs**
+
+A retrieved article maps to an artist or a genre, never to an individual song, so every song
+sharing that name receives an identical boost. For the query "ethiopian jazz" this put three
+Mulatu Astatke tracks in the top three positions: retrieval identified the right tradition and
+then flooded the results with it. The diversity cap exists to limit this, at the cost noted
+above.
+
+**7. Similarity scores are not comparable across queries**
+
+The strongest observed match is around 0.3 out of a theoretical 1.0, because a three-word query
+shares few terms with a 112-term document. The absolute value carries little meaning; only the
+ranking within a single query does. A displayed similarity of 0.05 and one of 0.30 are both
+"the best available", which is why the number shown next to a cultural note should not be read
+as a confidence level.
+
 ---
 
 ## 7. Evaluation  
@@ -353,3 +425,29 @@ What would you try next if you extended this project?
 
 What surprised you about how simple algorithms can still "feel" like recommendations?
     they might work for perfect users but they are not good fits for real world use.
+
+
+
+
+steps:
+1. user enter explanation of a genre/artist they want to hear
+2. the explanation gets compared against wikipedia articles
+3. explanations with similar words give us more information about the artist/genre
+4. cosine value gets calculated for two phrases (that we are comparing), 
+  the question it answers:
+  How much distinctive vocabulary does this article share with the query?
+
+  Counterexample in your own corpus. Query "protest music":
+
+    Fela Kuti's article is genuinely the most relevant thing in your corpus — he was arrested repeatedly, his mother was killed in an army raid, Zombie is about military brutality
+    His article scores 0.0, because it says "political activist" and never uses the word "protest"
+    So the system returns nothing
+
+    And the inverse. When the salsa entry was still the disambiguation page about sauces, a query containing "salsa" would have matched it strongly — the word is right there, repeatedly. High score, zero musical information.
+  
+    The top article is the one whose text shares the most rare, distinctive words with the query text. (definition of TF-IDF)
+
+
+definition of some words:
+query: user input
+
